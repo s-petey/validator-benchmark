@@ -1,10 +1,14 @@
+import { Schema } from '@effect/schema'
 import cronometro from 'cronometro'
-import { users } from './users.js'
+import { parse } from 'valibot'
 import * as ajv from '../schemas/ajv.js'
+import * as effect from '../schemas/effectSchema.js'
 import * as joi from '../schemas/joi.js'
 import * as myzod from '../schemas/myzod.js'
+import * as valibot from '../schemas/valibot.js'
 import * as yup from '../schemas/yup.js'
 import * as zod from '../schemas/zod.js'
+import { users } from './users.js'
 
 cronometro(
   {
@@ -24,6 +28,12 @@ cronometro(
     },
     zod: function () {
       users.forEach((user) => zod.detailsSchema.safeParse(user))
+    },
+    effect: function () {
+      users.forEach((user) => Schema.decodeSync(effect.detailsSchema)(user))
+    },
+    valibot: function () {
+      users.forEach((user) => parse(valibot.detailsSchema, user))
     }
   },
   {
