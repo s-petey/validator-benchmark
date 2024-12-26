@@ -22,7 +22,7 @@ The implementation can be found in the [GitHub repository](https://github.com/mi
 
 ### Running locally
 
-This package uses [TurboRepo](https://turbo.build/repo/docs) as a helper to run commands. To run commands with caching use `pnpx turbo MY_COMMAND` example would be `pnpx turbo check`. You should see it run the build first as it is dependent on that then run the tests. If you execute the same command without any code changes it should say "FULL TURBO" as no changes have happened.
+This package uses [TurboRepo](https://turbo.build/repo/docs) as a helper to run commands. To run commands with caching use `pnpm turbo MY_COMMAND` example would be `pnpm turbo check`. You should see it run the build first as it is dependent on that then run the tests. If you execute the same command without any code changes it should say "FULL TURBO" as no changes have happened.
 
 
 ### Tested object
