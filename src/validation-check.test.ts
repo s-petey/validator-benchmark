@@ -8,6 +8,8 @@ import * as myzod from './schemas/myzod.js';
 import * as yup from './schemas/yup.js';
 import * as zod from './schemas/zod.js';
 import * as effect from './schemas/effectSchema.js';
+import * as valibot from './schemas/valibot.js';
+import { parse } from 'valibot';
 import { Schema } from '@effect/schema';
 
 describe('Single object bench, check if object pass the validation', () => {
@@ -62,6 +64,15 @@ describe('Single object bench, check if object pass the validation', () => {
     });
     test('details', () => {
       strictEqual(!!Schema.decodeSync(effect.detailsSchema)(user), true);
+    });
+  });
+
+  describe('valibot', () => {
+    test('base', () => {
+      strictEqual(!!parse(valibot.baseSchema, user), true);
+    });
+    test('details', () => {
+      strictEqual(!!parse(valibot.detailsSchema, user), true);
     });
   });
 });
@@ -175,6 +186,25 @@ describe('Many objects bench, check if all objects pass the validation', () => {
       strictEqual(
         users
           .map((user) => Schema.decodeSync(effect.detailsSchema)(user))
+          .every((result) => !!result),
+        true
+      );
+    });
+  });
+
+  describe('valibot', () => {
+    test('base', () => {
+      strictEqual(
+        users
+          .map((user) => parse(valibot.baseSchema, user))
+          .every((result) => !!result),
+        true
+      );
+    });
+    test('details', () => {
+      strictEqual(
+        users
+          .map((user) => parse(valibot.detailsSchema, user))
           .every((result) => !!result),
         true
       );
