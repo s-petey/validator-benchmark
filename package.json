@@ -8,8 +8,8 @@
     "bench:single:types": "node dist/bench-single-object/types-only-validation.benchmark.js",
     "bench:many": "node dist/bench-many-objects/comprehensive-validation.benchmark.js",
     "bench:many:types": "node dist/bench-many-objects/types-only-validation.benchmark.js",
-    "format": "standard",
-    "format:fix": "standard --fix"
+    "format": "standard ./src/**/*.ts",
+    "format:fix": "standard ./src/**/*.ts --fix"
   },
   "author": "Mikołaj Kalwa",
   "devDependencies": {
@@ -17,6 +17,7 @@
     "@types/node": "^22.10.2",
     "@types/validator": "^13.12.2",
     "standard": "17.1.0",
+    "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   },
   "dependencies": {
@@ -30,5 +31,6 @@
     "validator": "13.12.0",
     "yup": "1.6.1",
     "zod": "3.24.1"
-  }
+  },
+  "packageManager": "pnpm@9.12.2"
 }

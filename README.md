@@ -8,6 +8,8 @@ Recently, I've participated in a project that was utilizing a library called myz
 * [yup](https://www.npmjs.com/package/yup/v/1.3.2)
 * [zod](https://www.npmjs.com/package/zod/v/3.22.4)
 * [myzod](https://www.npmjs.com/package/myzod/v/1.11.0) (with [validator](https://www.npmjs.com/package/validator/v/13.11.0))
+* [valibot](https://valibot.dev/)
+* [@effect/schema](https://effect.website/docs/schema/introduction/)
 
 ## Benchmark implementation
 Two variants were checked:
@@ -16,6 +18,12 @@ Two variants were checked:
 
 All the benchmarks were done on a 2023 MacBook Pro with the Apple M3 Chip using Node 20.10.0 and a tool made by Paolo Insogna, [Cronometro](https://www.npmjs.com/package/cronometro/v/1.2.0).
 The implementation can be found in the [GitHub repository](https://github.com/mikolajkalwa/nodejs-validator-benchmark).
+
+
+### Running locally
+
+This package uses [TurboRepo](https://turbo.build/repo/docs) as a helper to run commands. To run commands with caching use `pnpx turbo MY_COMMAND` example would be `pnpx turbo check`. You should see it run the build first as it is dependent on that then run the tests. If you execute the same command without any code changes it should say "FULL TURBO" as no changes have happened.
+
 
 ### Tested object
 ```js
