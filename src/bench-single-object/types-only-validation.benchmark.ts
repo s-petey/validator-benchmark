@@ -1,28 +1,38 @@
-import cronometro from 'cronometro';
-import { user } from './user.js';
-import * as ajv from '../schemas/ajv.js';
-import * as joi from '../schemas/joi.js';
-import * as myzod from '../schemas/myzod.js';
-import * as yup from '../schemas/yup.js';
-import * as zod from '../schemas/zod.js';
+import { Schema } from '@effect/schema'
+import cronometro from 'cronometro'
+import { safeParse } from 'valibot'
+import * as ajv from '../schemas/ajv.js'
+import * as effect from '../schemas/effectSchema.js'
+import * as joi from '../schemas/joi.js'
+import * as myzod from '../schemas/myzod.js'
+import * as valibot from '../schemas/valibot.js'
+import * as yup from '../schemas/yup.js'
+import * as zod from '../schemas/zod.js'
+import { user } from './user.js'
 
 cronometro(
   {
     ajv: function () {
-      ajv.baseSchema(user);
+      ajv.baseSchema(user)
     },
     joi: function () {
-      joi.baseSchema.validate(user);
+      joi.baseSchema.validate(user)
     },
     myzod: function () {
-      myzod.baseSchema.try(user);
+      myzod.baseSchema.try(user)
     },
     yup: function () {
-      yup.baseSchema.isValidSync(user, { strict: true });
+      yup.baseSchema.isValidSync(user, { strict: true })
     },
     zod: function () {
-      zod.baseSchema.safeParse(user);
+      zod.baseSchema.safeParse(user)
+    },    
+    effect: function () {
+      Schema.decodeEither(effect.detailsSchema)(user)
     },
+    valibot: function () {
+      safeParse(valibot.detailsSchema, user)
+    }
   },
   {
     iterations: 10_000_000,
@@ -31,13 +41,13 @@ cronometro(
     print: {
       colors: false,
       compare: true,
-      compareMode: 'base',
-    },
+      compareMode: 'base'
+    }
   },
   (err, results) => {
     if (err) {
-      throw err;
+      throw err
     }
-    console.log(JSON.stringify(results, null, 2));
+    console.log(JSON.stringify(results, null, 2))
   }
-);
+)

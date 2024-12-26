@@ -1,30 +1,40 @@
-import cronometro from 'cronometro';
-import { users } from './users.js';
-import * as ajv from '../schemas/ajv.js';
-import * as joi from '../schemas/joi.js';
-import * as myzod from '../schemas/myzod.js';
-import * as yup from '../schemas/yup.js';
-import * as zod from '../schemas/zod.js';
+import { Schema } from '@effect/schema'
+import cronometro from 'cronometro'
+import { safeParse } from 'valibot'
+import * as ajv from '../schemas/ajv.js'
+import * as effect from '../schemas/effectSchema.js'
+import * as joi from '../schemas/joi.js'
+import * as myzod from '../schemas/myzod.js'
+import * as valibot from '../schemas/valibot.js'
+import * as yup from '../schemas/yup.js'
+import * as zod from '../schemas/zod.js'
+import { users } from './users.js'
 
 cronometro(
   {
     ajv: function () {
-      users.forEach((user) => ajv.baseSchema(user));
+      users.forEach((user) => ajv.baseSchema(user))
     },
     joi: function () {
-      users.forEach((user) => joi.baseSchema.validate(user));
+      users.forEach((user) => joi.baseSchema.validate(user))
     },
     myzod: function () {
-      users.forEach((user) => myzod.baseSchema.try(user));
+      users.forEach((user) => myzod.baseSchema.try(user))
     },
     yup: function () {
       users.forEach((user) =>
         yup.baseSchema.isValidSync(user, { strict: true })
-      );
+      )
     },
     zod: function () {
-      users.forEach((user) => zod.baseSchema.safeParse(user));
+      users.forEach((user) => zod.baseSchema.safeParse(user))
     },
+    effect: function () {
+      users.forEach((user) => Schema.decodeEither(effect.detailsSchema)(user))
+    },
+    valibot: function () {
+      users.forEach((user) => safeParse(valibot.detailsSchema, user))
+    }
   },
   {
     iterations: 10_000,
@@ -33,13 +43,13 @@ cronometro(
     print: {
       colors: false,
       compare: true,
-      compareMode: 'base',
-    },
+      compareMode: 'base'
+    }
   },
   (err, results) => {
     if (err) {
-      throw err;
+      throw err
     }
-    console.log(JSON.stringify(results, null, 2));
+    console.log(JSON.stringify(results, null, 2))
   }
-);
+)
