@@ -2,25 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "outputs": ["dist/**/*"],
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": ["dist/**"],
       "cache": true
     },
-    "check": {
-      "dependsOn": ["build"]
-    },
-    "bench:single": {
-      "dependsOn": ["build"]
-    },
-    "bench:single:types": {
-      "dependsOn": ["build"]
-    },
-    "bench:many": {
-      "dependsOn": ["build"]
-    },
-    "bench:many:types": {
-      "dependsOn": ["build"]
-    },
     "format": {},
-    "format:fix": {}
+    "format:fix": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }
