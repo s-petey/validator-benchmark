@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { Hook } from 'tinybench';
-	import { browser } from '$app/environment';
-
-	import BenchWorker from '$lib/worker?worker';
+	// import BenchWorker from '$lib/worker?worker';
 	// const columnHelper = createColumnHelper<TableResult>();
-	import { updateBench } from '$lib/benches';
-	import type { Column, ResultStatus, TableResult } from '$lib/table.schema';
+	// import { updateBench } from '$lib/benches';
+	// import type { Column, ResultStatus, TableResult } from '$lib/table.schema';
+	import BenchWorker from '@locals/bench-worker/worker?worker';
+	import type { Column, ResultStatus, TableResult } from '@locals/bench-worker/bench.schemas';
 
 	type ValidatorResource = {
 		href: string;
@@ -132,12 +131,17 @@
 	]);
 
 	const worker = new BenchWorker();
-	// {
-	// 	// columns: $state.snapshot(() => columns),
-	// 	...$state.snapshot(() => formState)
-	// }
-	worker.postMessage([10, 2]);
-	worker.onmessage = (e) => {
+	worker.postMessage({
+		time: 10,
+		iterations: 2
+	});
+	worker.onmessage = (
+		e: MessageEvent<{
+			status?: ResultStatus;
+			progress?: string;
+			results?: TableResult[];
+		}>
+	) => {
 		if (e.data.status) {
 			status = e.data.status;
 		}
@@ -235,7 +239,7 @@
 				formState = newFormState;
 
 				worker.postMessage(newFormState);
-				worker.postMessage([newFormState.time, newFormState.iterations]);
+				// worker.postMessage([newFormState.time, newFormState.iterations]);
 			}}
 		>
 			<!-- // action={(form) => {
@@ -276,6 +280,19 @@
 				disabled={status === 'pending'}
 			>
 				Start Benchmark
+			</button>
+
+			<button
+				type="button"
+				onclick={() => {
+					worker.postMessage({
+						time: 0,
+						iterations: 0,
+						interrupt: true
+					});
+				}}
+			>
+				Cancel run
 			</button>
 		</form>
 

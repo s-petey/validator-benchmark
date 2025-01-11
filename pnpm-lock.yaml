@@ -145,6 +145,9 @@ importers:
       '@locals/bench':
         specifier: workspace:^
         version: link:../../packages/bench
+      '@locals/bench-worker':
+        specifier: workspace:^
+        version: link:../../packages/bench-worker
       '@tailwindcss/forms':
         specifier: ^0.5.9
         version: 0.5.10(tailwindcss@3.4.17)
@@ -220,7 +223,7 @@ importers:
     dependencies:
       '@effect/schema':
         specifier: ^0.75.5
-        version: 0.75.5(effect@3.12.0)
+        version: 0.75.5(effect@3.12.1)
       ajv:
         specifier: 8.17.1
         version: 8.17.1
@@ -267,6 +270,21 @@ importers:
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
+
+  packages/bench-worker:
+    dependencies:
+      '@locals/bench':
+        specifier: workspace:*
+        version: link:../bench
+      effect:
+        specifier: ^3.12.1
+        version: 3.12.1
+      tinybench:
+        specifier: ^3.1.0
+        version: 3.1.0
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
 
 packages:
 
@@ -1941,8 +1959,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@3.12.0:
-    resolution: {integrity: sha512-b/u9s3b9HfTo0qygVouegP0hkbiuxRIeaCe1ppf8P88hPyl6lKCbErtn7Az4jG7LuU7f0Wgm4c8WXbMcL2j8+g==}
+  effect@3.12.1:
+    resolution: {integrity: sha512-aAZdh56Yp1ehOFYeMcHHctTtxfqm6kkOdZFTXK6Zf0QoaKKc1hPG6ocjrKOc0axE8JbG4eZw351ogNLrM4vo9w==}
 
   electron-to-chromium@1.5.76:
     resolution: {integrity: sha512-CjVQyG7n7Sr+eBXE86HIulnL5N8xZY1sgmOPGuq/F0Rr0FJq63lg0kEtOIDfZBk44FnDLf6FUJ+dsJcuiUDdDQ==}
@@ -4191,9 +4209,9 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@effect/schema@0.75.5(effect@3.12.0)':
+  '@effect/schema@0.75.5(effect@3.12.1)':
     dependencies:
-      effect: 3.12.0
+      effect: 3.12.1
       fast-check: 3.23.2
 
   '@emnapi/core@1.3.1':
@@ -5594,7 +5612,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@3.12.0:
+  effect@3.12.1:
     dependencies:
       fast-check: 3.23.2
 

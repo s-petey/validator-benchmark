@@ -1,0 +1,14 @@
+{
+  "name": "@locals/bench-worker",
+  "type": "module",
+  "exports": {
+    "./worker": "./src/worker.ts",
+    "./bench.schemas": "./src/bench.schemas.ts"
+  },
+  "dependencies": {
+    "@locals/bench": "workspace:*",
+    "effect": "^3.12.1",
+    "tinybench": "^3.1.0",
+    "zod": "^3.24.1"
+  }
+}
