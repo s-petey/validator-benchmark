@@ -1,12 +1,12 @@
-import { manyBenchmarks } from '@locals/bench/schemas';
+import { validators } from '@locals/bench/schemas';
 import type { Dispatch } from 'react';
 import { Bench } from 'tinybench';
 import { z } from 'zod';
 import { expose } from 'comlink';
 
 function populateBench(bench: Bench) {
-  for (const [key, benchFn] of Object.entries(manyBenchmarks)) {
-    bench.add(key, benchFn);
+  for (const { name, singleAction } of validators) {
+    bench.add(name, singleAction);
   }
 }
 
@@ -25,7 +25,7 @@ async function benchWorker(
   setProgress: Dispatch<string>
 ) {
   const bench = new Bench({
-    time: time,
+    time,
     iterations,
     name: 'Validator Benchmarks',
     setup: (_task, mode) => {
@@ -36,8 +36,6 @@ async function benchWorker(
     },
     teardown: (task, mode) => {
       if (mode !== 'warmup') {
-        console.log('teardown', task, mode);
-        // setProgress(task.name);
         setProgress(task.name);
       }
     },
@@ -56,6 +54,7 @@ async function benchWorker(
   const table = bench.table();
   const parsedTable = TableResultSchema.array().parse(table);
 
+  setProgress('');
   return parsedTable;
 }
 

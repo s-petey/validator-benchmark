@@ -1,3 +1,4 @@
+import { validators } from '@locals/bench/schemas';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -10,7 +11,7 @@ import {
   type SortingState,
 } from '@tanstack/react-table';
 import { proxy, wrap } from 'comlink';
-import * as React from 'react';
+import { useState } from 'react';
 import { z } from 'zod';
 
 const TableResultSchema = z.object({
@@ -64,22 +65,22 @@ const columns = [
 ];
 
 const worker = new Worker('../../lib/comlinkWorker.ts', {
-  name: 'my-first-worker',
+  name: 'comlink-bench-worker',
   type: 'module',
 });
 const workerApi =
   wrap<import('../../lib/comlinkWorker.js').ComlinkWorker>(worker);
 
 function HomeComponent() {
-  const [time, setTime] = React.useState(10);
-  const [iterations, setIterations] = React.useState(2);
-  const [formState, setFormState] = React.useState({
+  const [time, setTime] = useState(10);
+  const [iterations, setIterations] = useState(2);
+  const [formState, setFormState] = useState({
     time,
     iterations,
   });
-  const [progress, setProgress] = React.useState('');
+  const [progress, setProgress] = useState('');
 
-  const { data, isPending, status } = useQuery({
+  const { data, status, isPlaceholderData } = useQuery({
     queryKey: ['bench', formState.time, formState.iterations],
     queryFn: () =>
       workerApi.benchWorker(
@@ -88,36 +89,34 @@ function HomeComponent() {
         proxy(setProgress)
       ),
     staleTime: Infinity,
+    placeholderData: (a) => a,
   });
 
-  console.log({ status });
-
   return (
-    <main className='flex items-center justify-center pt-16 pb-4'>
-      <div className='flex-1 flex flex-col items-center gap-16 min-h-0'>
-        <header className='flex flex-col items-center gap-9'>
-          <h1 className='text-4xl font-bold'>
-            Simple Node validator benchmarks
-          </h1>
-        </header>
+    <main className='flex flex-col items-center justify-center py-8 gap-4'>
+      <header className='flex flex-col items-center gap-9'>
+        <h1 className='text-4xl font-bold'>Simple Node validator benchmarks</h1>
+      </header>
+
+      <div className='flex-1 flex flex-col items-center gap-4 min-h-0'>
         <div className='max-w-[300px] w-full space-y-6 px-4'>
           {/* List currently included validators */}
           <section>
             <h2 className='text-2xl font-bold'>Currently included</h2>
-            <ul className='grid grid-cols-2 space-y-2'>
+            <div className='flex flex-row flex-wrap justify-around w-full gap-4'>
               {validators.map(({ href, name }) => (
-                <li key={href}>
+                <div key={href} className='p-2'>
                   <a
-                    className='group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500'
+                    className='text-blue-700 hover:underline dark:text-blue-500'
                     href={href}
                     target='_blank'
                     rel='noreferrer'
                   >
                     {name}
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
         </div>
 
@@ -129,10 +128,7 @@ function HomeComponent() {
           ></div>
           <div className='text-center'>
             {status !== 'success' && status !== 'error' ? (
-              <span className='animate-pulse'>
-                {status === 'pending' ? 'First ' : 'Next '}
-                Benchmark is loading...
-              </span>
+              <span className='animate-pulse'>Benchmark is loading...</span>
             ) : status === 'success' ? (
               <span className='text-green-500'>Success!</span>
             ) : status === 'error' ? (
@@ -153,54 +149,66 @@ function HomeComponent() {
           )}
         </div>
 
-        <form className='space-y-4'>
+        <form
+          className='space-y-4 flex items-center flex-col'
+          onSubmit={(e) => {
+            e.preventDefault();
+            setFormState({
+              time,
+              iterations,
+            });
+          }}
+        >
           <div className='flex gap-4'>
             <label htmlFor='iterations' className='font-medium'>
               Iterations:
             </label>
             <input
-              disabled={status === 'pending'}
+              disabled={isPlaceholderData || status === 'pending'}
               type='number'
               id='iterations'
               name='iterations'
               min='1'
               value={iterations}
-              className='border rounded-md p-1'
+              className='border rounded-md p-1 disabled:opacity-50'
               onChange={(e) => setIterations(Number(e.target.value))}
             />
+
+            <Tooltip text='Number of times that a task should run if even the time option is finished' />
           </div>
-          <div className='flex gap-4'>
+          <div className='flex gap-4 items-center'>
             <label htmlFor='time' className='font-medium'>
-              Time (seconds):
+              Time (ms):
             </label>
             <input
-              disabled={status === 'pending'}
+              disabled={isPlaceholderData || status === 'pending'}
               type='number'
               id='time'
               name='time'
               min='1'
               value={time}
-              className='border rounded-md p-1'
+              className='border rounded-md p-1 disabled:opacity-50'
               onChange={(e) => setTime(Number(e.target.value))}
             />
+
+            <Tooltip text='Time needed for running a benchmark task (milliseconds)' />
           </div>
           <button
-            disabled={status === 'pending'}
-            type='button'
-            className='bg-blue-500 text-white px-4 py-2 rounded-md'
-            onClick={() => {
-              setFormState({
-                time,
-                iterations,
-              });
-            }}
+            disabled={isPlaceholderData || status === 'pending'}
+            type='submit'
+            className='bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50'
           >
             Start Benchmark
           </button>
         </form>
 
+        <div className='text-sm text-gray-600 dark:text-gray-400'>
+          The benchmark will only run the results one time per combination of
+          time and iterations until the browser reloads.
+        </div>
+
         <div className='relative overflow-x-auto w-2/3'>
-          <Table data={data ?? []} />
+          <Table data={data ?? []} placeholder={isPlaceholderData} />
 
           <div className='h-4' />
           {/* <button onClick={() => rerender()} className='border p-2'>
@@ -212,8 +220,14 @@ function HomeComponent() {
   );
 }
 
-function Table({ data }: { data: TableResult[] }) {
-  const [sorting, setSorting] = React.useState<SortingState>([
+function Table({
+  data,
+  placeholder,
+}: {
+  data: TableResult[];
+  placeholder: boolean;
+}) {
+  const [sorting, setSorting] = useState<SortingState>([
     {
       id: 'Throughput median (ops/s)' satisfies keyof TableResult,
       desc: false,
@@ -232,7 +246,12 @@ function Table({ data }: { data: TableResult[] }) {
   });
 
   return (
-    <table className='text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 md:table-fixed table-auto'>
+    <table
+      className={
+        'text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 md:table-fixed table-auto' +
+        (placeholder ? ' opacity-50' : '')
+      }
+    >
       <thead className='text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
@@ -287,38 +306,13 @@ function Table({ data }: { data: TableResult[] }) {
   );
 }
 
-type ValidatorResource = {
-  href: string;
-  name: string;
+const Tooltip = ({ text }: { text: string }) => {
+  return (
+    <div className='relative group'>
+      &#9432;
+      <div className='absolute w-48 left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 z-10'>
+        {text}
+      </div>
+    </div>
+  );
 };
-
-const validators: ValidatorResource[] = [
-  {
-    href: 'https://www.npmjs.com/package/ajv',
-    name: 'ajv',
-  },
-  {
-    href: 'https://www.npmjs.com/package/joi',
-    name: 'joi',
-  },
-  {
-    href: 'https://www.npmjs.com/package/yup',
-    name: 'yup',
-  },
-  {
-    href: 'https://www.npmjs.com/package/zod',
-    name: 'zod',
-  },
-  {
-    href: 'https://www.npmjs.com/package/myzod',
-    name: 'myzod',
-  },
-  {
-    href: 'https://valibot.dev/',
-    name: 'valibot',
-  },
-  {
-    href: 'https://effect.website/docs/schema/introduction/',
-    name: '@effect/schema',
-  },
-];
