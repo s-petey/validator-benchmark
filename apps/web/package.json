@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3001",
-    "build": "vite build && tsc --noEmit",
-    "serve": "vite preview",
-    "start": "vite"
+    "check:types": "tsc --noEmit",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "dependencies": {
     "@locals/bench": "workspace:*",
@@ -30,5 +30,6 @@
     "typescript": "^5.7.2",
     "vite": "^6.0.3",
     "vite-plugin-comlink": "^5.1.0"
-  }
+  },
+  "packageManager": "pnpm@9.12.2"
 }
