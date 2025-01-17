@@ -17,6 +17,9 @@ importers:
       '@locals/bench':
         specifier: workspace:*
         version: link:../../packages/bench
+      '@locals/bench-worker':
+        specifier: workspace:*
+        version: link:../../packages/bench-worker
       '@tanstack/react-query':
         specifier: ^5.63.0
         version: 5.63.0(react@19.0.0)
@@ -127,6 +130,9 @@ importers:
       '@locals/bench':
         specifier: workspace:*
         version: link:../bench
+      comlink:
+        specifier: ^4.4.2
+        version: 4.4.2
       effect:
         specifier: ^3.12.1
         version: 3.12.1

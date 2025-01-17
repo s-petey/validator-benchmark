@@ -1,3 +1,4 @@
+import ComWorker from '@locals/bench-worker/comlinkWorker?worker';
 import { validators } from '@locals/bench/schemas';
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
@@ -64,12 +65,11 @@ const columns = [
   columnHelper.accessor('Samples', {}),
 ];
 
-const worker = new Worker('../../lib/comlinkWorker.ts', {
+const worker = new ComWorker({
   name: 'comlink-bench-worker',
-  type: 'module',
 });
 const workerApi =
-  wrap<import('../../lib/comlinkWorker.js').ComlinkWorker>(worker);
+  wrap<import('@locals/bench-worker/comlinkWorker').ComlinkWorker>(worker);
 
 function HomeComponent() {
   const [time, setTime] = useState(10);
@@ -127,7 +127,8 @@ function HomeComponent() {
             }`}
           ></div>
           <div className='text-center'>
-            {status !== 'success' && status !== 'error' ? (
+            {isPlaceholderData ||
+            (status !== 'success' && status !== 'error') ? (
               <span className='animate-pulse'>Benchmark is loading...</span>
             ) : status === 'success' ? (
               <span className='text-green-500'>Success!</span>
@@ -135,7 +136,7 @@ function HomeComponent() {
               <span className='text-red-500'>Error</span>
             ) : null}
           </div>
-          {status === 'pending' && (
+          {(isPlaceholderData || status === 'pending') && (
             <div className='text-center'>
               {progress && (
                 <span className='text-gray-700 dark:text-gray-300'>

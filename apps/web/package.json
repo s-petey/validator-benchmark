@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@locals/bench": "workspace:*",
+    "@locals/bench-worker": "workspace:*",
     "@tanstack/react-query": "^5.63.0",
     "@tanstack/react-query-devtools": "^5.63.0",
     "@tanstack/react-router": "^1.95.1",

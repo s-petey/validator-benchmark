@@ -1,5 +1,4 @@
 import { validators } from '@locals/bench/schemas';
-import type { Dispatch } from 'react';
 import { Bench } from 'tinybench';
 import { z } from 'zod';
 import { expose } from 'comlink';
@@ -22,7 +21,7 @@ const TableResultSchema = z.object({
 async function benchWorker(
   time: number,
   iterations: number,
-  setProgress: Dispatch<string>
+  setProgress: (v: string) => void
 ) {
   const bench = new Bench({
     time,
