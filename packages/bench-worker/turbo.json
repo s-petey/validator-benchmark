@@ -1,0 +1,8 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "format": {},
+    "format:fix": {}
+  },
+  "extends": ["//"]
+}

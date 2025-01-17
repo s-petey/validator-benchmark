@@ -1,0 +1,35 @@
+{
+  "name": "@locals/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3001",
+    "check:types": "tsc --noEmit",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@locals/bench": "workspace:*",
+    "@locals/bench-worker": "workspace:*",
+    "@tanstack/react-query": "^5.63.0",
+    "@tanstack/react-query-devtools": "^5.63.0",
+    "@tanstack/react-router": "^1.95.1",
+    "@tanstack/react-table": "^8.20.6",
+    "@tanstack/router-devtools": "^1.95.1",
+    "@tanstack/router-plugin": "^1.95.1",
+    "comlink": "^4.4.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tinybench": "^3.1.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vite-plugin-comlink": "^5.1.0"
+  },
+  "packageManager": "pnpm@9.12.2"
+}

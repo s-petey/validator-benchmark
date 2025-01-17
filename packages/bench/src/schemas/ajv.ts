@@ -1,8 +1,8 @@
-import Ajv from 'ajv'
+import { Ajv } from 'ajv'
 import addFormats from 'ajv-formats'
 
 const ajv = new Ajv()
-addFormats(ajv)
+addFormats.default(ajv)
 
 export const baseSchema = ajv.compile({
   type: 'object',
@@ -26,12 +26,7 @@ export const baseSchema = ajv.compile({
     organization_id: { type: 'string' },
     requested_at: { type: 'string' }
   },
-  required: [
-    'name',
-    'login',
-    'organization_id',
-    'requested_at'
-  ]
+  required: ['name', 'login', 'organization_id', 'requested_at']
 })
 
 export const detailsSchema = ajv.compile({
@@ -56,10 +51,5 @@ export const detailsSchema = ajv.compile({
     organization_id: { type: 'string', format: 'uuid' },
     requested_at: { type: 'string', format: 'date-time' }
   },
-  required: [
-    'name',
-    'login',
-    'organization_id',
-    'requested_at'
-  ]
+  required: ['name', 'login', 'organization_id', 'requested_at']
 })
