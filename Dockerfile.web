@@ -14,4 +14,4 @@ RUN pnpm run build -F @locals/web
 
 FROM base
 COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/apps/web/dist /ap
+COPY --from=build /app/apps/web/dist /app
