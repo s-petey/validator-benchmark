@@ -1,4 +1,4 @@
-import { manyBenchmarks } from '@locals/bench/schemas';
+import { validators } from '@locals/bench/schemas';
 import { TableResultSchema } from './bench.schemas.js';
 import { Bench, type Hook } from 'tinybench';
 import { Effect } from 'effect';
@@ -39,8 +39,8 @@ import { Effect } from 'effect';
 // };
 
 export function populateBench(bench: Bench) {
-  for (const [key, benchFn] of Object.entries(manyBenchmarks)) {
-    bench.add(key, benchFn);
+  for (const [key, { singleAction }] of Object.entries(validators)) {
+    bench.add(key, singleAction);
   }
 }
 

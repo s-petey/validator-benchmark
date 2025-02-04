@@ -27,6 +27,7 @@
     "@effect/schema": "^0.75.5",
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1",
+    "arktype": "^2.0.4",
     "cronometro": "4.0.0",
     "joi": "17.13.3",
     "myzod": "1.12.0",
