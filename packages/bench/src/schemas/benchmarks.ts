@@ -8,6 +8,7 @@ import { detailsSchema as myzodDetailsSchema } from '../schemas/myzod.js';
 import { detailsSchema as valibotDetailsSchema } from '../schemas/valibot.js';
 import { detailsSchema as yupDetailsSchema } from '../schemas/yup.js';
 import { detailsSchema as zodDetailsSchema } from '../schemas/zod.js';
+import { detailsSchema as arktypeDetailsSchema } from '../schemas/arktype.js';
 // import { detailsSchema as joiDetailsSchema } from '../schemas/joi.js';
 
 type ValidatorResource = {
@@ -89,6 +90,17 @@ export const validators = [
     },
     multipleActions() {
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
+    },
+  } satisfies ValidatorResource,
+
+  {
+    href: 'https://arktype.io/',
+    name: 'ArkType',
+    singleAction() {
+      arktypeDetailsSchema(user);
+    },
+    multipleActions() {
+      users.forEach((user) => arktypeDetailsSchema(user));
     },
   } satisfies ValidatorResource,
 ] as const;
