@@ -4,7 +4,7 @@
   "author": "Mikołaj Kalwa",
   "scripts": {
     "build": "tsc",
-    "check": "node dist/validation-check.test.js",
+    "test": "vitest",
     "bench:single": "node dist/bench-single-object/comprehensive-validation.benchmark.js",
     "bench:single:types": "node dist/bench-single-object/types-only-validation.benchmark.js",
     "bench:many": "node dist/bench-many-objects/comprehensive-validation.benchmark.js",
@@ -21,7 +21,8 @@
     "@types/validator": "^13.12.2",
     "standard": "17.1.0",
     "turbo": "^2.3.3",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@effect/schema": "^0.75.5",

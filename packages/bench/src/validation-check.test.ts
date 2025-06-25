@@ -1,5 +1,4 @@
-import { strictEqual } from 'node:assert';
-import { describe, test } from 'node:test';
+import { describe, test, expect } from 'vitest';
 import { users } from './bench-many-objects/users.js';
 import { user } from './bench-single-object/user.js';
 import * as ajv from './schemas/ajv.js';
@@ -15,64 +14,64 @@ import { Schema } from '@effect/schema';
 describe('Single object bench, check if object pass the validation', () => {
   describe('ajv', () => {
     test('base', () => {
-      strictEqual(ajv.baseSchema(user), true);
+      expect(ajv.baseSchema(user)).toBe(true);
     });
     test('details', () => {
-      strictEqual(ajv.detailsSchema(user), true);
+      expect(ajv.detailsSchema(user)).toBe(true);
     });
   });
 
   describe('joi', () => {
     test('base', () => {
-      strictEqual(!joi.baseSchema.validate(user).error, true);
+      expect(!joi.baseSchema.validate(user).error).toBe(true);
     });
     test('details', () => {
-      strictEqual(!joi.detailsSchema.validate(user).error, true);
+      expect(!joi.detailsSchema.validate(user).error).toBe(true);
     });
   });
 
   describe('myzod', () => {
     test('base', () => {
-      strictEqual(!(myzod.baseSchema.try(user) instanceof Error), true);
+      expect(!(myzod.baseSchema.try(user) instanceof Error)).toBe(true);
     });
     test('details', () => {
-      strictEqual(!(myzod.detailsSchema.try(user) instanceof Error), true);
+      expect(!(myzod.detailsSchema.try(user) instanceof Error)).toBe(true);
     });
   });
 
   describe('yup', () => {
     test('base', () => {
-      strictEqual(yup.baseSchema.isValidSync(user, { strict: true }), true);
+      expect(yup.baseSchema.isValidSync(user, { strict: true })).toBe(true);
     });
     test('details', () => {
-      strictEqual(yup.detailsSchema.isValidSync(user, { strict: true }), true);
+      expect(yup.detailsSchema.isValidSync(user, { strict: true })).toBe(true);
     });
   });
 
   describe('zod', () => {
     test('base', () => {
-      strictEqual(!zod.baseSchema.safeParse(user).error, true);
+      expect(!zod.baseSchema.safeParse(user).error).toBe(true);
     });
     test('details', () => {
-      strictEqual(!zod.detailsSchema.safeParse(user).error, true);
+      expect(!zod.detailsSchema.safeParse(user).error).toBe(true);
     });
   });
 
   describe('effect', () => {
     test('base', () => {
-      strictEqual(!!Schema.decodeSync(effect.baseSchema)(user), true);
+      expect(!!Schema.decodeSync(effect.baseSchema)(user)).toBe(true);
     });
     test('details', () => {
-      strictEqual(!!Schema.decodeSync(effect.detailsSchema)(user), true);
+      expect(!!Schema.decodeSync(effect.detailsSchema)(user)).toBe(true);
     });
   });
 
   describe('valibot', () => {
     test('base', () => {
-      strictEqual(!!parse(valibot.baseSchema, user), true);
+      expect(!!parse(valibot.baseSchema, user)).toBe(true);
     });
     test('details', () => {
-      strictEqual(!!parse(valibot.detailsSchema, user), true);
+      expect(!!parse(valibot.detailsSchema, user)).toBe(true);
     });
   });
 });
@@ -80,134 +79,120 @@ describe('Single object bench, check if object pass the validation', () => {
 describe('Many objects bench, check if all objects pass the validation', () => {
   describe('ajv', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => ajv.baseSchema(user))
-          .every((result) => result === true),
-        true
-      );
+          .every((result) => result === true)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => ajv.detailsSchema(user))
-          .every((result) => result === true),
-        true
-      );
+          .every((result) => result === true)
+      ).toBe(true);
     });
   });
 
   describe('joi', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => joi.baseSchema.validate(user))
-          .every((result) => !result.error),
-        true
-      );
+          .every((result) => !result.error)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => joi.detailsSchema.validate(user))
-          .every((result) => !result.error),
-        true
-      );
+          .every((result) => !result.error)
+      ).toBe(true);
     });
   });
 
   describe('myzod', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => myzod.baseSchema.try(user))
-          .every((result) => !(result instanceof Error)),
-        true
-      );
+          .every((result) => !(result instanceof Error))
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => myzod.detailsSchema.try(user))
-          .every((result) => !(result instanceof Error)),
-        true
-      );
+          .every((result) => !(result instanceof Error))
+      ).toBe(true);
     });
   });
 
   describe('yup', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => yup.baseSchema.isValidSync(user, { strict: true }))
-          .every((result) => result === true),
-        true
-      );
+          .every((result) => result === true)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => yup.detailsSchema.isValidSync(user, { strict: true }))
-          .every((result) => result === true),
-        true
-      );
+          .every((result) => result === true)
+      ).toBe(true);
     });
   });
 
   describe('zod', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => zod.baseSchema.safeParse(user))
-          .every((result) => !result.error),
-        true
-      );
+          .every((result) => !result.error)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => zod.detailsSchema.safeParse(user))
-          .every((result) => !result.error),
-        true
-      );
+          .every((result) => !result.error)
+      ).toBe(true);
     });
   });
 
   describe('effect', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => Schema.decodeSync(effect.baseSchema)(user))
-          .every((result) => !!result),
-        true
-      );
+          .every((result) => !!result)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => Schema.decodeSync(effect.detailsSchema)(user))
-          .every((result) => !!result),
-        true
-      );
+          .every((result) => !!result)
+      ).toBe(true);
     });
   });
 
   describe('valibot', () => {
     test('base', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => parse(valibot.baseSchema, user))
-          .every((result) => !!result),
-        true
-      );
+          .every((result) => !!result)
+      ).toBe(true);
     });
     test('details', () => {
-      strictEqual(
+      expect(
         users
           .map((user) => parse(valibot.detailsSchema, user))
-          .every((result) => !!result),
-        true
-      );
+          .every((result) => !!result)
+      ).toBe(true);
     });
   });
 });
