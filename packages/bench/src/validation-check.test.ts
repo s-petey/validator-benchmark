@@ -7,10 +7,12 @@ import * as myzod from './schemas/myzod.js';
 import * as yup from './schemas/yup.js';
 import * as zod from './schemas/zod.js';
 import * as zod4 from './schemas/zod4.js';
+import * as arktype from './schemas/arktype.js';
 import * as effect from './schemas/effectSchema.js';
 import * as valibot from './schemas/valibot.js';
 import { parse } from 'valibot';
 import { Schema } from '@effect/schema';
+import { ArkErrors } from 'arktype';
 
 describe('Single object bench, check if object pass the validation', () => {
   describe('ajv', () => {
@@ -64,6 +66,15 @@ describe('Single object bench, check if object pass the validation', () => {
     });
     test('details', () => {
       expect(!zod4.detailsSchema.safeParse(user).error).toBe(true);
+    });
+  });
+
+  describe('arktype', () => {
+    test('base', () => {
+      expect(!(arktype.baseSchema(user) instanceof ArkErrors)).toBe(true);
+    });
+    test('details', () => {
+      expect(!(arktype.detailsSchema(user) instanceof ArkErrors)).toBe(true);
     });
   });
 
@@ -185,6 +196,23 @@ describe('Many objects bench, check if all objects pass the validation', () => {
         users
           .map((user) => zod4.detailsSchema.safeParse(user))
           .every((result) => !result.error)
+      ).toBe(true);
+    });
+  });
+
+  describe('arktype', () => {
+    test('base', () => {
+      expect(
+        users
+          .map((user) => arktype.baseSchema(user) instanceof ArkErrors)
+          .every((result) => !result)
+      ).toBe(true);
+    });
+    test('details', () => {
+      expect(
+        users
+          .map((user) => arktype.detailsSchema(user) instanceof ArkErrors)
+          .every((result) => !result)
       ).toBe(true);
     });
   });
