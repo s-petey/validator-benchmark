@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@locals/bench": "workspace:*",
+    "comlink": "^4.4.2",
     "effect": "^3.12.1",
     "tinybench": "^3.1.0",
-    "comlink": "^4.4.2",
-    "zod": "^3.24.1"
+    "zod": "^3.25.67"
   },
   "packageManager": "pnpm@9.12.2"
 }
