@@ -105,7 +105,7 @@ function HomeComponent() {
             <h2 className='text-2xl font-bold'>Currently included</h2>
             <div className='flex flex-row flex-wrap justify-around w-full gap-4'>
               {validators.map(({ href, name }) => (
-                <div key={href} className='p-2'>
+                <div key={`validator-${name}-${href}`} className='p-2'>
                   <a
                     className='text-blue-700 hover:underline dark:text-blue-500'
                     href={href}

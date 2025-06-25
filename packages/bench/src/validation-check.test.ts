@@ -6,6 +6,7 @@ import * as joi from './schemas/joi.js';
 import * as myzod from './schemas/myzod.js';
 import * as yup from './schemas/yup.js';
 import * as zod from './schemas/zod.js';
+import * as zod4 from './schemas/zod4.js';
 import * as effect from './schemas/effectSchema.js';
 import * as valibot from './schemas/valibot.js';
 import { parse } from 'valibot';
@@ -54,6 +55,15 @@ describe('Single object bench, check if object pass the validation', () => {
     });
     test('details', () => {
       expect(!zod.detailsSchema.safeParse(user).error).toBe(true);
+    });
+  });
+
+  describe('zod4', () => {
+    test('base', () => {
+      expect(!zod4.baseSchema.safeParse(user).error).toBe(true);
+    });
+    test('details', () => {
+      expect(!zod4.detailsSchema.safeParse(user).error).toBe(true);
     });
   });
 
@@ -157,6 +167,23 @@ describe('Many objects bench, check if all objects pass the validation', () => {
       expect(
         users
           .map((user) => zod.detailsSchema.safeParse(user))
+          .every((result) => !result.error)
+      ).toBe(true);
+    });
+  });
+
+  describe('zod4', () => {
+    test('base', () => {
+      expect(
+        users
+          .map((user) => zod4.baseSchema.safeParse(user))
+          .every((result) => !result.error)
+      ).toBe(true);
+    });
+    test('details', () => {
+      expect(
+        users
+          .map((user) => zod4.detailsSchema.safeParse(user))
           .every((result) => !result.error)
       ).toBe(true);
     });
