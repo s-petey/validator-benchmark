@@ -1,4 +1,4 @@
-import { Schema } from '@effect/schema';
+import { Schema } from 'effect';
 import cronometro from 'cronometro';
 import { safeParse } from 'valibot';
 import { writeReport } from '../fileWriter.js';

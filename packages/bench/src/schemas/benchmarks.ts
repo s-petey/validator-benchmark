@@ -1,4 +1,4 @@
-import { Schema } from '@effect/schema';
+import { Schema } from 'effect';
 import { parse } from 'valibot';
 import { users } from '../bench-many-objects/users.js';
 import { user } from '../bench-single-object/user.js';
@@ -96,7 +96,7 @@ export const validators = [
   } satisfies ValidatorResource,
   {
     href: 'https://effect.website/docs/schema/introduction/',
-    name: '@effect/schema',
+    name: 'effect',
     singleAction() {
       Schema.decodeSync(effectDetailsSchema)(user);
     },
