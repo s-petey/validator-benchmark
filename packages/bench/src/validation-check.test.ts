@@ -11,6 +11,7 @@ import * as arktype from './schemas/arktype.js';
 import * as effect from './schemas/effectSchema.js';
 import * as valibot from './schemas/valibot.js';
 import * as arri from './schemas/arri.js';
+import * as typia from './schemas/typia.js';
 import { parse } from 'valibot';
 import { Schema } from 'effect';
 import { ArkErrors } from 'arktype';
@@ -50,6 +51,15 @@ describe('Single object bench, check if object pass the validation', () => {
     });
     test('details', () => {
       expect(!(myzod.detailsSchema.try(user) instanceof Error)).toBe(true);
+    });
+  });
+
+  describe('typia', () => {
+    test('base', () => {
+      expect(typia.isBaseSchema(user)).toBe(true);
+    });
+    test('details', () => {
+      expect(typia.isDetailsSchema(user)).toBe(true);
     });
   });
 
@@ -173,6 +183,23 @@ describe('Many objects bench, check if all objects pass the validation', () => {
         users
           .map((user) => myzod.detailsSchema.try(user))
           .every((result) => !(result instanceof Error))
+      ).toBe(true);
+    });
+  });
+
+  describe('typia', () => {
+    test('base', () => {
+      expect(
+        users
+          .map((user) => typia.isBaseSchema(user))
+          .every((result) => result === true)
+      ).toBe(true);
+    });
+    test('details', () => {
+      expect(
+        users
+          .map((user) => typia.isDetailsSchema(user))
+          .every((result) => result === true)
       ).toBe(true);
     });
   });

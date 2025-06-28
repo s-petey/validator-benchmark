@@ -43,6 +43,24 @@ export const validators = [
       users.forEach((user) => ajvDetailsSchema(user));
     },
   } satisfies ValidatorResource,
+  {
+    href: 'https://arktype.io/',
+    name: 'ArkType',
+    singleAction() {
+      const result = arktypeDetailsSchema(user);
+      if (result instanceof type.errors) {
+        throw result;
+      }
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        const result = arktypeDetailsSchema(user);
+        if (result instanceof type.errors) {
+          throw result;
+        }
+      });
+    },
+  } satisfies ValidatorResource,
   // TODO: Figure out why JOI errors...
   // {
   //   href: 'https://www.npmjs.com/package/joi',
@@ -116,23 +134,14 @@ export const validators = [
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
   } satisfies ValidatorResource,
-
   {
-    href: 'https://arktype.io/',
-    name: 'ArkType',
+    href: 'https://typia.io/',
+    name: 'typia',
     singleAction() {
-      const result = arktypeDetailsSchema(user);
-      if (result instanceof type.errors) {
-        throw result;
-      }
+      //
     },
     multipleActions() {
-      users.forEach((user) => {
-        const result = arktypeDetailsSchema(user);
-        if (result instanceof type.errors) {
-          throw result;
-        }
-      });
+      //
     },
   } satisfies ValidatorResource,
 ] as const;

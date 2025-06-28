@@ -22,7 +22,9 @@
     },
     "format": {},
     "format:fix": {},
-    "test": {}
+    "test": {
+      "dependsOn": ["build"]
+    }
   },
   "extends": ["//"]
 }

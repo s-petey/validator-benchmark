@@ -7,6 +7,8 @@
     "outDir": "dist",
     "sourceMap": true,
     "noEmit": false,
+    "strictNullChecks": true,
+    "plugins": [{ "transform": "typia/lib/transform" }],
 
     "lib": ["es2022"]
   }
