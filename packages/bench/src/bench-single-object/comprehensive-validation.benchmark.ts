@@ -1,4 +1,4 @@
-import { Schema } from '@effect/schema';
+import { Schema } from 'effect';
 import cronometro from 'cronometro';
 import { parse } from 'valibot';
 import { writeReport } from '../fileWriter.js';
@@ -9,6 +9,8 @@ import * as myzod from '../schemas/myzod.js';
 import * as valibot from '../schemas/valibot.js';
 import * as yup from '../schemas/yup.js';
 import * as zod from '../schemas/zod.js';
+import * as zod4 from '../schemas/zod4.js';
+import * as arktype from '../schemas/arktype.js';
 import { user } from './user.js';
 
 cronometro(
@@ -27,6 +29,12 @@ cronometro(
     },
     zod: function () {
       zod.detailsSchema.safeParse(user);
+    },
+    zod4: function () {
+      zod4.detailsSchema.safeParse(user);
+    },
+    arktype: function () {
+      arktype.detailsSchema(user);
     },
     effect: function () {
       Schema.decodeSync(effect.detailsSchema)(user);

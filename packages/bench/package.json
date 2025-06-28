@@ -4,7 +4,7 @@
   "author": "Mikołaj Kalwa",
   "scripts": {
     "build": "tsc",
-    "check": "node dist/validation-check.test.js",
+    "test": "vitest",
     "bench:single": "node dist/bench-single-object/comprehensive-validation.benchmark.js",
     "bench:single:types": "node dist/bench-single-object/types-only-validation.benchmark.js",
     "bench:many": "node dist/bench-many-objects/comprehensive-validation.benchmark.js",
@@ -16,25 +16,26 @@
     "./schemas": "./src/schemas/benchmarks.ts"
   },
   "devDependencies": {
-    "@faker-js/faker": "8.3.1",
-    "@types/node": "^22.10.2",
-    "@types/validator": "^13.12.2",
-    "standard": "17.1.0",
-    "turbo": "^2.3.3",
-    "typescript": "^5.7.2"
+    "@faker-js/faker": "9.8.0",
+    "@types/node": "^22.15.34",
+    "@types/validator": "^13.15.2",
+    "standard": "17.1.2",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@effect/schema": "^0.75.5",
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1",
-    "arktype": "^2.0.4",
-    "cronometro": "4.0.0",
+    "arktype": "^2.1.20",
+    "cronometro": "5.3.0",
+    "effect": "^3.16.10",
     "joi": "17.13.3",
-    "myzod": "1.12.0",
-    "valibot": "1.0.0-beta.9",
-    "validator": "13.12.0",
+    "myzod": "1.12.1",
+    "valibot": "1.1.0",
+    "validator": "13.15.15",
     "yup": "1.6.1",
-    "zod": "3.24.1"
+    "zod": "3.25.67"
   },
   "packageManager": "pnpm@9.12.2"
 }

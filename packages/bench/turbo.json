@@ -21,7 +21,8 @@
       "dependsOn": ["build"]
     },
     "format": {},
-    "format:fix": {}
+    "format:fix": {},
+    "test": {}
   },
   "extends": ["//"]
 }
