@@ -10,13 +10,12 @@ export type WorkerArgs = z.infer<typeof WorkerSchema>;
 
 export const TableResultSchema = z.object({
   'Task name': z.string(),
-  'Latency average (ns)': z.string(),
-  'Latency median (ns)': z.string(),
-  'Throughput average (ops/s)': z.string(),
-  'Throughput median (ops/s)': z.string(),
+  'Latency avg (ns)': z.string(),
+  'Latency med (ns)': z.string(),
+  'Throughput avg (ops/s)': z.string(),
+  'Throughput med (ops/s)': z.string(),
   Samples: z.number(),
 });
-
 export type TableResult = z.infer<typeof TableResultSchema>;
 
 export type Column = {

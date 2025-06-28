@@ -1,3 +1,4 @@
+import { TableResultSchema } from '@locals/bench-worker/bench.schemas';
 import ComWorker from '@locals/bench-worker/comlinkWorker?worker';
 import { validators } from '@locals/bench/schemas';
 import { useQuery } from '@tanstack/react-query';
@@ -14,15 +15,6 @@ import {
 import { proxy, wrap } from 'comlink';
 import { useState } from 'react';
 import { z } from 'zod';
-
-const TableResultSchema = z.object({
-  'Task name': z.string(),
-  'Latency average (ns)': z.string(),
-  'Latency median (ns)': z.string(),
-  'Throughput average (ops/s)': z.string(),
-  'Throughput median (ops/s)': z.string(),
-  Samples: z.number(),
-});
 
 type TableResult = z.infer<typeof TableResultSchema>;
 
@@ -50,16 +42,16 @@ const throughputAvgSort: SortingFn<TableResult> = (a, b, _columnId) => {
 
 const columns = [
   columnHelper.accessor('Task name', {}),
-  columnHelper.accessor('Latency average (ns)', {
+  columnHelper.accessor('Latency avg (ns)', {
     sortingFn: throughputAvgSort,
   }),
-  columnHelper.accessor('Latency median (ns)', {
+  columnHelper.accessor('Latency med (ns)', {
     sortingFn: throughputAvgSort,
   }),
-  columnHelper.accessor('Throughput average (ops/s)', {
+  columnHelper.accessor('Throughput avg (ops/s)', {
     sortingFn: throughputAvgSort,
   }),
-  columnHelper.accessor('Throughput median (ops/s)', {
+  columnHelper.accessor('Throughput med (ops/s)', {
     sortingFn: throughputAvgSort,
   }),
   columnHelper.accessor('Samples', {}),
@@ -230,7 +222,7 @@ function Table({
 }) {
   const [sorting, setSorting] = useState<SortingState>([
     {
-      id: 'Throughput median (ops/s)' satisfies keyof TableResult,
+      id: 'Throughput med (ops/s)' satisfies keyof TableResult,
       desc: false,
     },
   ]);
