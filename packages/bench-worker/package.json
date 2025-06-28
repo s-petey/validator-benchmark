@@ -9,7 +9,7 @@
   "dependencies": {
     "@locals/bench": "workspace:*",
     "comlink": "^4.4.2",
-    "effect": "^3.12.1",
+    "effect": "^3.16.10",
     "tinybench": "^3.1.0",
     "zod": "^3.25.67"
   },

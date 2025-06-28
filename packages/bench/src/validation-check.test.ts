@@ -11,7 +11,7 @@ import * as arktype from './schemas/arktype.js';
 import * as effect from './schemas/effectSchema.js';
 import * as valibot from './schemas/valibot.js';
 import { parse } from 'valibot';
-import { Schema } from '@effect/schema';
+import { Schema } from 'effect';
 import { ArkErrors } from 'arktype';
 
 describe('Single object bench, check if object pass the validation', () => {
