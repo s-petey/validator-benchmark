@@ -12,7 +12,9 @@ import { detailsSchema as valibotDetailsSchema } from '../schemas/valibot.js';
 import { detailsSchema as yupDetailsSchema } from '../schemas/yup.js';
 import { detailsSchema as zodDetailsSchema } from '../schemas/zod.js';
 import { detailsSchema as zod4DetailsSchema } from '../schemas/zod4.js';
+import { detailsSchema as typeboxDetailsSchema } from '../schemas/typebox.js';
 import { a } from '@arrirpc/schema';
+import { Value } from '@sinclair/typebox/value';
 // import { detailsSchema as joiDetailsSchema } from '../schemas/joi.js';
 
 type ValidatorResource = {
@@ -116,7 +118,18 @@ export const validators = [
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
   } satisfies ValidatorResource,
-
+  {
+    href: 'https://github.com/sinclairzx81/typebox',
+    name: 'typebox',
+    singleAction() {
+      Value.Parse(typeboxDetailsSchema, user);
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        Value.Parse(typeboxDetailsSchema, user);
+      });
+    },
+  } satisfies ValidatorResource,
   {
     href: 'https://arktype.io/',
     name: 'ArkType',

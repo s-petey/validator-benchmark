@@ -1,4 +1,5 @@
 import { a } from '@arrirpc/schema';
+import { Value } from '@sinclair/typebox/value';
 import cronometro from 'cronometro';
 import { Schema } from 'effect';
 import { parse } from 'valibot';
@@ -9,6 +10,7 @@ import * as arri from '../schemas/arri.js';
 import * as effect from '../schemas/effectSchema.js';
 import * as joi from '../schemas/joi.js';
 import * as myzod from '../schemas/myzod.js';
+import * as typebox from '../schemas/typebox.js';
 import * as valibot from '../schemas/valibot.js';
 import * as yup from '../schemas/yup.js';
 import * as zod from '../schemas/zod.js';
@@ -48,6 +50,9 @@ cronometro(
     },
     valibot: function () {
       users.forEach((user) => parse(valibot.detailsSchema, user));
+    },
+    typebox: function () {
+      users.forEach((user) => Value.Parse(typebox.detailsSchema, user));
     },
   },
   {
