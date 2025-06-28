@@ -1,8 +1,11 @@
-import { Schema } from 'effect';
+import { a } from '@arrirpc/schema';
 import cronometro from 'cronometro';
+import { Schema } from 'effect';
 import { parse } from 'valibot';
 import { writeReport } from '../fileWriter.js';
 import * as ajv from '../schemas/ajv.js';
+import * as arktype from '../schemas/arktype.js';
+import * as arri from '../schemas/arri.js';
 import * as effect from '../schemas/effectSchema.js';
 import * as joi from '../schemas/joi.js';
 import * as myzod from '../schemas/myzod.js';
@@ -10,11 +13,13 @@ import * as valibot from '../schemas/valibot.js';
 import * as yup from '../schemas/yup.js';
 import * as zod from '../schemas/zod.js';
 import * as zod4 from '../schemas/zod4.js';
-import * as arktype from '../schemas/arktype.js';
 import { user } from './user.js';
 
 cronometro(
   {
+    arri: function () {
+      a.parse(arri.detailsSchema, user);
+    },
     ajv: function () {
       ajv.detailsSchema(user);
     },
