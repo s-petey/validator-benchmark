@@ -9,6 +9,7 @@ import * as myzod from '../schemas/myzod.js';
 import * as valibot from '../schemas/valibot.js';
 import * as yup from '../schemas/yup.js';
 import * as zod from '../schemas/zod.js';
+import * as zod4 from '../schemas/zod4.js';
 import { user } from './user.js';
 
 cronometro(
@@ -27,6 +28,9 @@ cronometro(
     },
     zod: function () {
       zod.baseSchema.safeParse(user);
+    },
+    zod4: function () {
+      zod4.baseSchema.safeParse(user);
     },
     // TODO: I don't know if this was done properly
     effect: function () {

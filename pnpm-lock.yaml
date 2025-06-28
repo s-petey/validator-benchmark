@@ -51,8 +51,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       zod:
-        specifier: ^3.24.1
-        version: 3.24.1
+        specifier: ^3.25.67
+        version: 3.25.67
     devDependencies:
       '@types/react':
         specifier: ^19.0.7
@@ -106,8 +106,8 @@ importers:
         specifier: 1.6.1
         version: 1.6.1
       zod:
-        specifier: 3.24.1
-        version: 3.24.1
+        specifier: 3.25.67
+        version: 3.25.67
     devDependencies:
       '@faker-js/faker':
         specifier: 8.3.1
@@ -146,8 +146,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       zod:
-        specifier: ^3.24.1
-        version: 3.24.1
+        specifier: ^3.25.67
+        version: 3.25.67
 
 packages:
 
@@ -2601,8 +2601,8 @@ packages:
   yup@1.6.1:
     resolution: {integrity: sha512-JED8pB50qbA4FOkDol0bYF/p60qSEDQqBD0/qeIrUCG1KbPBIQ776fCUNb9ldbPcSTxA69g/47XTo4TqWiuXOA==}
 
-  zod@3.24.1:
-    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+  zod@3.25.67:
+    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
 
 snapshots:
 
@@ -3220,7 +3220,7 @@ snapshots:
       '@tanstack/virtual-file-routes': 1.87.6
       prettier: 3.4.2
       tsx: 4.19.2
-      zod: 3.24.1
+      zod: 3.25.67
     optionalDependencies:
       '@tanstack/react-router': 1.95.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
@@ -3243,7 +3243,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.8
       chokidar: 3.6.0
       unplugin: 1.16.1
-      zod: 3.24.1
+      zod: 3.25.67
     optionalDependencies:
       vite: 6.0.7(@types/node@22.10.2)(jiti@1.21.7)(tsx@4.19.2)(yaml@2.6.1)
     transitivePeerDependencies:
@@ -5169,4 +5169,4 @@ snapshots:
       toposort: 2.0.2
       type-fest: 2.19.0
 
-  zod@3.24.1: {}
+  zod@3.25.67: {}

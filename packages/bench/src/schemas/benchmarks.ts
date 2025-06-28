@@ -8,6 +8,7 @@ import { detailsSchema as myzodDetailsSchema } from '../schemas/myzod.js';
 import { detailsSchema as valibotDetailsSchema } from '../schemas/valibot.js';
 import { detailsSchema as yupDetailsSchema } from '../schemas/yup.js';
 import { detailsSchema as zodDetailsSchema } from '../schemas/zod.js';
+import { detailsSchema as zod4DetailsSchema } from '../schemas/zod4.js';
 import { detailsSchema as arktypeDetailsSchema } from '../schemas/arktype.js';
 import { type } from 'arktype';
 // import { detailsSchema as joiDetailsSchema } from '../schemas/joi.js';
@@ -61,6 +62,16 @@ export const validators = [
     },
     multipleActions() {
       users.forEach((user) => zodDetailsSchema.safeParse(user));
+    },
+  } satisfies ValidatorResource,
+  {
+    href: 'https://www.npmjs.com/package/zod',
+    name: 'zod4',
+    singleAction() {
+      zod4DetailsSchema.safeParse(user);
+    },
+    multipleActions() {
+      users.forEach((user) => zod4DetailsSchema.safeParse(user));
     },
   } satisfies ValidatorResource,
   {
