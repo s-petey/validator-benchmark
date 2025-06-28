@@ -1,16 +1,20 @@
+import { type } from 'arktype';
 import { Schema } from 'effect';
 import { parse } from 'valibot';
 import { users } from '../bench-many-objects/users.js';
 import { user } from '../bench-single-object/user.js';
 import { detailsSchema as ajvDetailsSchema } from '../schemas/ajv.js';
+import { detailsSchema as arktypeDetailsSchema } from '../schemas/arktype.js';
+import { detailsSchema as arriDetailsSchema } from '../schemas/arri.js';
 import { detailsSchema as effectDetailsSchema } from '../schemas/effectSchema.js';
 import { detailsSchema as myzodDetailsSchema } from '../schemas/myzod.js';
 import { detailsSchema as valibotDetailsSchema } from '../schemas/valibot.js';
 import { detailsSchema as yupDetailsSchema } from '../schemas/yup.js';
 import { detailsSchema as zodDetailsSchema } from '../schemas/zod.js';
 import { detailsSchema as zod4DetailsSchema } from '../schemas/zod4.js';
-import { detailsSchema as arktypeDetailsSchema } from '../schemas/arktype.js';
-import { type } from 'arktype';
+import { detailsSchema as typeboxDetailsSchema } from '../schemas/typebox.js';
+import { a } from '@arrirpc/schema';
+import { Value } from '@sinclair/typebox/value';
 // import { detailsSchema as joiDetailsSchema } from '../schemas/joi.js';
 
 type ValidatorResource = {
@@ -21,6 +25,16 @@ type ValidatorResource = {
 };
 
 export const validators = [
+  {
+    href: 'https://www.npmjs.com/package/@arrirpc/schema',
+    name: 'arri',
+    singleAction() {
+      a.parse(arriDetailsSchema, user);
+    },
+    multipleActions() {
+      users.forEach((user) => a.parse(arriDetailsSchema, user));
+    },
+  } satisfies ValidatorResource,
   {
     href: 'https://www.npmjs.com/package/ajv',
     name: 'ajv',
@@ -58,20 +72,20 @@ export const validators = [
     href: 'https://www.npmjs.com/package/zod',
     name: 'zod',
     singleAction() {
-      zodDetailsSchema.safeParse(user);
+      zodDetailsSchema.parse(user);
     },
     multipleActions() {
-      users.forEach((user) => zodDetailsSchema.safeParse(user));
+      users.forEach((user) => zodDetailsSchema.parse(user));
     },
   } satisfies ValidatorResource,
   {
     href: 'https://www.npmjs.com/package/zod',
     name: 'zod4',
     singleAction() {
-      zod4DetailsSchema.safeParse(user);
+      zod4DetailsSchema.parse(user);
     },
     multipleActions() {
-      users.forEach((user) => zod4DetailsSchema.safeParse(user));
+      users.forEach((user) => zod4DetailsSchema.parse(user));
     },
   } satisfies ValidatorResource,
   {
@@ -104,7 +118,18 @@ export const validators = [
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
   } satisfies ValidatorResource,
-
+  {
+    href: 'https://github.com/sinclairzx81/typebox',
+    name: 'typebox',
+    singleAction() {
+      Value.Parse(typeboxDetailsSchema, user);
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        Value.Parse(typeboxDetailsSchema, user);
+      });
+    },
+  } satisfies ValidatorResource,
   {
     href: 'https://arktype.io/',
     name: 'ArkType',

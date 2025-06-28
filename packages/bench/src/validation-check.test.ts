@@ -1,20 +1,33 @@
-import { describe, test, expect } from 'vitest';
+import { a } from '@arrirpc/schema';
+import { Value } from '@sinclair/typebox/value';
+import { ArkErrors } from 'arktype';
+import { Schema } from 'effect';
+import { parse } from 'valibot';
+import { describe, expect, test } from 'vitest';
 import { users } from './bench-many-objects/users.js';
 import { user } from './bench-single-object/user.js';
 import * as ajv from './schemas/ajv.js';
+import * as arktype from './schemas/arktype.js';
+import * as arri from './schemas/arri.js';
+import * as effect from './schemas/effectSchema.js';
 import * as joi from './schemas/joi.js';
 import * as myzod from './schemas/myzod.js';
+import * as typebox from './schemas/typebox.js';
+import * as valibot from './schemas/valibot.js';
 import * as yup from './schemas/yup.js';
 import * as zod from './schemas/zod.js';
 import * as zod4 from './schemas/zod4.js';
-import * as arktype from './schemas/arktype.js';
-import * as effect from './schemas/effectSchema.js';
-import * as valibot from './schemas/valibot.js';
-import { parse } from 'valibot';
-import { Schema } from 'effect';
-import { ArkErrors } from 'arktype';
 
 describe('Single object bench, check if object pass the validation', () => {
+  describe('arri', () => {
+    test('base', () => {
+      expect(a.validate(arri.baseSchema, user)).toBe(true);
+    });
+    test('details', () => {
+      expect(a.validate(arri.detailsSchema, user)).toBe(true);
+    });
+  });
+
   describe('ajv', () => {
     test('base', () => {
       expect(ajv.baseSchema(user)).toBe(true);
@@ -95,9 +108,35 @@ describe('Single object bench, check if object pass the validation', () => {
       expect(!!parse(valibot.detailsSchema, user)).toBe(true);
     });
   });
+
+  describe('typebox', () => {
+    test('base', () => {
+      expect(Value.Check(typebox.baseSchema, user)).toBe(true);
+    });
+    test('details', () => {
+      expect(Value.Check(typebox.detailsSchema, user)).toBe(true);
+    });
+  });
 });
 
 describe('Many objects bench, check if all objects pass the validation', () => {
+  describe('arri', () => {
+    test('base', () => {
+      expect(
+        users
+          .map((user) => a.validate(arri.baseSchema, user))
+          .every((result) => result === true)
+      ).toBe(true);
+    });
+    test('details', () => {
+      expect(
+        users
+          .map((user) => a.validate(arri.detailsSchema, user))
+          .every((result) => result === true)
+      ).toBe(true);
+    });
+  });
+
   describe('ajv', () => {
     test('base', () => {
       expect(
@@ -247,6 +286,23 @@ describe('Many objects bench, check if all objects pass the validation', () => {
         users
           .map((user) => parse(valibot.detailsSchema, user))
           .every((result) => !!result)
+      ).toBe(true);
+    });
+  });
+
+  describe('typebox', () => {
+    test('base', () => {
+      expect(
+        users
+          .map((user) => Value.Check(typebox.baseSchema, user))
+          .every((result) => result === true)
+      ).toBe(true);
+    });
+    test('details', () => {
+      expect(
+        users
+          .map((user) => Value.Check(typebox.detailsSchema, user))
+          .every((result) => result === true)
       ).toBe(true);
     });
   });
