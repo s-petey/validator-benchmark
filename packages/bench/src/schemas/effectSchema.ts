@@ -1,15 +1,14 @@
-import { Schema } from 'effect';
+import { Schema } from "effect";
 
-const emailRegex =
-  /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i;
+const emailRegex = /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i;
 
-const EmailBrand = Symbol.for('EmailBrand');
+const EmailBrand = Symbol.for("EmailBrand");
 
 export const emailSchema = Schema.compose(Schema.Trim, Schema.Lowercase).pipe(
   Schema.pattern(emailRegex, {
-    message: () => 'Email address is invalid',
+    message: () => "Email address is invalid",
   }),
-  Schema.brand(EmailBrand)
+  Schema.brand(EmailBrand),
 );
 
 export const baseSchema = Schema.Struct({

@@ -1,5 +1,5 @@
-import * as yup from 'yup';
-import validator from 'validator';
+import validator from "validator";
+import * as yup from "yup";
 
 // NOTE: seems like yup itself don't support validation ISO String date in strict mode
 // https://github.com/jquense/yup/issues/1218

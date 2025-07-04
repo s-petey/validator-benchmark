@@ -1,57 +1,55 @@
-import { a } from '@arrirpc/schema';
-import { Value } from '@sinclair/typebox/value';
-import cronometro from 'cronometro';
-import { Schema } from 'effect';
-import { parse } from 'valibot';
-import { writeReport } from '../fileWriter.js';
-import * as ajv from '../schemas/ajv.js';
-import * as arktype from '../schemas/arktype.js';
-import * as arri from '../schemas/arri.js';
-import * as effect from '../schemas/effectSchema.js';
-import * as joi from '../schemas/joi.js';
-import * as myzod from '../schemas/myzod.js';
-import * as typebox from '../schemas/typebox.js';
-import * as valibot from '../schemas/valibot.js';
-import * as yup from '../schemas/yup.js';
-import * as zod from '../schemas/zod.js';
-import * as zod4 from '../schemas/zod4.js';
-import { users } from './users.js';
+import { a } from "@arrirpc/schema";
+import { Value } from "@sinclair/typebox/value";
+import cronometro from "cronometro";
+import { Schema } from "effect";
+import { parse } from "valibot";
+import { writeReport } from "../fileWriter.js";
+import * as ajv from "../schemas/ajv.js";
+import * as arktype from "../schemas/arktype.js";
+import * as arri from "../schemas/arri.js";
+import * as effect from "../schemas/effectSchema.js";
+import * as joi from "../schemas/joi.js";
+import * as myzod from "../schemas/myzod.js";
+import * as typebox from "../schemas/typebox.js";
+import * as valibot from "../schemas/valibot.js";
+import * as yup from "../schemas/yup.js";
+import * as zod from "../schemas/zod.js";
+import * as zod4 from "../schemas/zod4.js";
+import { users } from "./users.js";
 
 cronometro(
   {
-    arri: function () {
+    arri: () => {
       users.forEach((user) => a.parse(arri.detailsSchema, user));
     },
-    ajv: function () {
+    ajv: () => {
       users.forEach((user) => ajv.detailsSchema(user));
     },
-    joi: function () {
+    joi: () => {
       users.forEach((user) => joi.detailsSchema.validate(user));
     },
-    myzod: function () {
+    myzod: () => {
       users.forEach((user) => myzod.detailsSchema.try(user));
     },
-    yup: function () {
-      users.forEach((user) =>
-        yup.detailsSchema.isValidSync(user, { strict: true })
-      );
+    yup: () => {
+      users.forEach((user) => yup.detailsSchema.isValidSync(user, { strict: true }));
     },
-    zod: function () {
+    zod: () => {
       users.forEach((user) => zod.detailsSchema.safeParse(user));
     },
-    zod4: function () {
+    zod4: () => {
       users.forEach((user) => zod4.detailsSchema.safeParse(user));
     },
-    arktype: function () {
+    arktype: () => {
       users.forEach((user) => arktype.detailsSchema(user));
     },
-    effect: function () {
+    effect: () => {
       users.forEach((user) => Schema.decodeSync(effect.detailsSchema)(user));
     },
-    valibot: function () {
+    valibot: () => {
       users.forEach((user) => parse(valibot.detailsSchema, user));
     },
-    typebox: function () {
+    typebox: () => {
       users.forEach((user) => Value.Parse(typebox.detailsSchema, user));
     },
   },
@@ -66,6 +64,6 @@ cronometro(
     }
     console.log(JSON.stringify(results, null, 2));
 
-    writeReport('many_comprehensive', JSON.stringify(results, null, 2));
-  }
+    writeReport("many_comprehensive", JSON.stringify(results, null, 2));
+  },
 );

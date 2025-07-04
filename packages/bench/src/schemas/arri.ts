@@ -1,4 +1,4 @@
-import { a } from '@arrirpc/schema';
+import { a } from "@arrirpc/schema";
 
 /* Warning this is a very basic schema.
  * It may be faster than others, but is missing major validation features.

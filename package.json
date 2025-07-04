@@ -3,12 +3,13 @@
   "scripts": {
     "build": "turbo build",
     "check:types": "turbo check:types",
-    "format": "turbo format",
-    "format:fix": "turbo format:fix",
+    "format": "biome check",
+    "format:fix": "biome check --write",
     "dev": "turbo dev"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.0.6",
     "turbo": "^2.5.4"
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "pnpm@10.12.4"
 }

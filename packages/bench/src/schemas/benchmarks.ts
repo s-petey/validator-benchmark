@@ -1,20 +1,21 @@
-import { type } from 'arktype';
-import { Schema } from 'effect';
-import { parse } from 'valibot';
-import { users } from '../bench-many-objects/users.js';
-import { user } from '../bench-single-object/user.js';
-import { detailsSchema as ajvDetailsSchema } from '../schemas/ajv.js';
-import { detailsSchema as arktypeDetailsSchema } from '../schemas/arktype.js';
-import { detailsSchema as arriDetailsSchema } from '../schemas/arri.js';
-import { detailsSchema as effectDetailsSchema } from '../schemas/effectSchema.js';
-import { detailsSchema as myzodDetailsSchema } from '../schemas/myzod.js';
-import { detailsSchema as valibotDetailsSchema } from '../schemas/valibot.js';
-import { detailsSchema as yupDetailsSchema } from '../schemas/yup.js';
-import { detailsSchema as zodDetailsSchema } from '../schemas/zod.js';
-import { detailsSchema as zod4DetailsSchema } from '../schemas/zod4.js';
-import { detailsSchema as typeboxDetailsSchema } from '../schemas/typebox.js';
-import { a } from '@arrirpc/schema';
-import { Value } from '@sinclair/typebox/value';
+import { a } from "@arrirpc/schema";
+import { Value } from "@sinclair/typebox/value";
+import { type } from "arktype";
+import { Schema } from "effect";
+import { parse } from "valibot";
+import { users } from "../bench-many-objects/users.js";
+import { user } from "../bench-single-object/user.js";
+import { detailsSchema as ajvDetailsSchema } from "../schemas/ajv.js";
+import { detailsSchema as arktypeDetailsSchema } from "../schemas/arktype.js";
+import { detailsSchema as arriDetailsSchema } from "../schemas/arri.js";
+import { detailsSchema as effectDetailsSchema } from "../schemas/effectSchema.js";
+import { detailsSchema as myzodDetailsSchema } from "../schemas/myzod.js";
+import { detailsSchema as typeboxDetailsSchema } from "../schemas/typebox.js";
+import { detailsSchema as valibotDetailsSchema } from "../schemas/valibot.js";
+import { detailsSchema as yupDetailsSchema } from "../schemas/yup.js";
+import { detailsSchema as zodDetailsSchema } from "../schemas/zod.js";
+import { detailsSchema as zod4DetailsSchema } from "../schemas/zod4.js";
+
 // import { detailsSchema as joiDetailsSchema } from '../schemas/joi.js';
 
 type ValidatorResource = {
@@ -26,8 +27,8 @@ type ValidatorResource = {
 
 export const validators = [
   {
-    href: 'https://www.npmjs.com/package/@arrirpc/schema',
-    name: 'arri',
+    href: "https://www.npmjs.com/package/@arrirpc/schema",
+    name: "arri",
     singleAction() {
       a.parse(arriDetailsSchema, user);
     },
@@ -36,8 +37,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://www.npmjs.com/package/ajv',
-    name: 'ajv',
+    href: "https://www.npmjs.com/package/ajv",
+    name: "ajv",
     singleAction() {
       ajvDetailsSchema(user);
     },
@@ -57,20 +58,18 @@ export const validators = [
   //   },
   // },
   {
-    href: 'https://www.npmjs.com/package/yup',
-    name: 'yup',
+    href: "https://www.npmjs.com/package/yup",
+    name: "yup",
     singleAction() {
       yupDetailsSchema.isValidSync(user, { strict: true });
     },
     multipleActions() {
-      users.forEach((user) =>
-        yupDetailsSchema.isValidSync(user, { strict: true })
-      );
+      users.forEach((user) => yupDetailsSchema.isValidSync(user, { strict: true }));
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://www.npmjs.com/package/zod',
-    name: 'zod',
+    href: "https://www.npmjs.com/package/zod",
+    name: "zod",
     singleAction() {
       zodDetailsSchema.parse(user);
     },
@@ -79,8 +78,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://www.npmjs.com/package/zod',
-    name: 'zod4',
+    href: "https://www.npmjs.com/package/zod",
+    name: "zod4",
     singleAction() {
       zod4DetailsSchema.parse(user);
     },
@@ -89,8 +88,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://www.npmjs.com/package/myzod',
-    name: 'myzod',
+    href: "https://www.npmjs.com/package/myzod",
+    name: "myzod",
     singleAction() {
       myzodDetailsSchema.try(user);
     },
@@ -99,8 +98,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://valibot.dev/',
-    name: 'valibot',
+    href: "https://valibot.dev/",
+    name: "valibot",
     singleAction() {
       parse(valibotDetailsSchema, user);
     },
@@ -109,8 +108,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://effect.website/docs/schema/introduction/',
-    name: 'effect',
+    href: "https://effect.website/docs/schema/introduction/",
+    name: "effect",
     singleAction() {
       Schema.decodeSync(effectDetailsSchema)(user);
     },
@@ -119,8 +118,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://github.com/sinclairzx81/typebox',
-    name: 'typebox',
+    href: "https://github.com/sinclairzx81/typebox",
+    name: "typebox",
     singleAction() {
       Value.Parse(typeboxDetailsSchema, user);
     },
@@ -131,8 +130,8 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: 'https://arktype.io/',
-    name: 'ArkType',
+    href: "https://arktype.io/",
+    name: "ArkType",
     singleAction() {
       const result = arktypeDetailsSchema(user);
       if (result instanceof type.errors) {

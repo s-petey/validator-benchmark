@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
