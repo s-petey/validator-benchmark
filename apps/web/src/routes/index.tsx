@@ -65,41 +65,59 @@ const workerApi = wrap<import("@locals/bench-worker/comlinkWorker").ComlinkWorke
 function HomeComponent() {
   const [time, setTime] = useState(10);
   const [iterations, setIterations] = useState(2);
+  const [selectedValidators, setSelectedValidators] = useState(() => validators.map((v) => v.name));
   const [formState, setFormState] = useState({
     time,
-    iterations,
+    iterations, 
+    selectedValidators,
   });
   const [progress, setProgress] = useState("");
 
   const { data, status, isPlaceholderData } = useQuery({
-    queryKey: ["bench", formState.time, formState.iterations],
-    queryFn: () => workerApi.benchWorker(formState.time, formState.iterations, proxy(setProgress)),
+    queryKey: ["bench", formState.time, formState.iterations, formState.selectedValidators],
+    queryFn: () =>
+      workerApi.benchWorker(formState.time, formState.iterations, proxy(setProgress)).then((v) => {
+        // Filter results based on selected validators
+        return v.filter((result) => formState.selectedValidators.includes(result["Task name"]));
+      }),
     staleTime: Infinity,
     placeholderData: (a) => a,
   });
 
   return (
-    <main className="flex flex-col items-center justify-center py-8 gap-4">
-      <header className="flex flex-col items-center gap-9">
-        <h1 className="text-4xl font-bold">Simple Node validator benchmarks</h1>
+    <main className="flex flex-col justify-center gap-4">
+      <header className="flex flex-col p-4">
+        <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
       </header>
 
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
-        <div className="max-w-[300px] w-full space-y-6 px-4">
+        <div className="w-full px-4">
           {/* List currently included validators */}
-          <section>
-            <h2 className="text-2xl font-bold">Currently included</h2>
-            <div className="flex flex-row flex-wrap justify-around w-full gap-4">
+          <section className='flex flex-col items-center gap-2'>
+            <h2 className="text-2xl font-bold">Select validators to run</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full justify-items-center">
               {validators.map(({ href, name }) => (
-                <div key={`validator-${name}-${href}`} className="p-2">
-                  <a
-                    className="text-blue-700 hover:underline dark:text-blue-500"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {name}
-                  </a>
+                <div key={`validator-${name}-${href}`} className="p-2 flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedValidators.includes(name)}
+                    onChange={() => {
+                      setSelectedValidators((prev) =>
+                        prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name],
+                      );
+                    }}
+                    id={`checkbox-${name}`}
+                  />
+                  <label htmlFor={`checkbox-${name}`} className="cursor-pointer">
+                    <a
+                      className="text-blue-700 hover:underline dark:text-blue-500"
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {name}
+                    </a>
+                  </label>
                 </div>
               ))}
             </div>
@@ -142,6 +160,7 @@ function HomeComponent() {
             setFormState({
               time,
               iterations,
+              selectedValidators,
             });
           }}
         >
