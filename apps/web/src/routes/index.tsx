@@ -207,12 +207,12 @@ function HomeComponent() {
           </button>
         </form>
 
-        <div className="text-sm text-gray-600 dark:text-gray-400">
+        <div className="text-sm text-gray-600 dark:text-gray-400 px-4 text-center">
           The benchmark will only run the results one time per combination of time and iterations until the browser
           reloads.
         </div>
 
-        <div className="relative overflow-x-auto w-2/3">
+        <div className="flex flex-col overflow-x-auto w-3/4 justify-center">
           <Table data={data ?? []} placeholder={isPlaceholderData} />
 
           <div className="h-4" />
