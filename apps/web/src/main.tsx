@@ -1,5 +1,4 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen.js";
 
@@ -16,6 +15,7 @@ declare module "@tanstack/react-router" {
   }
 }
 
+// biome-ignore lint/style/noNonNullAssertion: Part of tanstack setup.
 const rootElement = document.getElementById("app")!;
 
 if (!rootElement.innerHTML) {

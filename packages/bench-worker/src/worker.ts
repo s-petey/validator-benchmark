@@ -13,7 +13,7 @@ const program = (time: number, iterations: number) =>
 
     const fiber = yield* Effect.fork(
       benchEffect(time, iterations, (task, mode) => {
-        if (mode !== "warmup") {
+        if (mode !== "warmup" && task) {
           postMessageTyped({ status: "pending", progress: task.name });
         }
       }),
@@ -29,6 +29,7 @@ const program = (time: number, iterations: number) =>
 
 let final: null | Fiber.RuntimeFiber<void, Error> = null;
 
+// biome-ignore lint/suspicious/noGlobalAssign: This is a WIP and not used.
 onmessage = (e) => {
   const { time, iterations, interrupt } = WorkerSchema.parse(e.data);
 

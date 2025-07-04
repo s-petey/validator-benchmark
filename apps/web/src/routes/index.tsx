@@ -237,7 +237,8 @@ function Table({ data, placeholder }: { data: TableResult[]; placeholder: boolea
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <th key={header.id} className="px-6 py-3">
-                <div
+                <button
+                  type="button"
                   className={header.column.getCanSort() ? "cursor-pointer select-none" : ""}
                   onClick={header.column.getToggleSortingHandler()}
                   title={
@@ -255,7 +256,7 @@ function Table({ data, placeholder }: { data: TableResult[]; placeholder: boolea
                     asc: " ⬆️",
                     desc: " ⬇️",
                   }[header.column.getIsSorted() as string] ?? null}
-                </div>
+                </button>
               </th>
             ))}
           </tr>
