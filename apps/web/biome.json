@@ -1,0 +1,15 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "extends": "//",
+  "files": {
+    "includes": [
+      "src/**/*.{ts,tsx}",
+      "!src/routeTree.gen.ts",
+      "index.html",
+      "README.md",
+      "tsconfig.*.json",
+      "turbo.json",
+      "vite.config.js"
+    ]
+  }
+}
