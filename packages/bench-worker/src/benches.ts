@@ -1,7 +1,7 @@
-import { validators } from '@locals/bench/schemas';
-import { TableResultSchema } from './bench.schemas.js';
-import { Bench, type Hook } from 'tinybench';
-import { Effect } from 'effect';
+import { validators } from "@locals/bench/schemas";
+import { Effect } from "effect";
+import { Bench, type Hook } from "tinybench";
+import { TableResultSchema } from "./bench.schemas.js";
 
 // export const load: PageLoad = async ({ url }) => {
 // 	const time = url.searchParams.get('time');
@@ -44,19 +44,15 @@ export function populateBench(bench: Bench) {
   }
 }
 
-export const benchEffect = (
-  time: number,
-  iterations: number,
-  teardown?: Hook
-) =>
+export const benchEffect = (time: number, iterations: number, teardown?: Hook) =>
   Effect.gen(function* (_) {
     const bench = new Bench({
       time,
       iterations,
-      name: 'Validator Benchmarks',
+      name: "Validator Benchmarks",
       setup: (_task, mode) => {
         // Run the garbage collector before warmup at each cycle
-        if (mode === 'warmup' && typeof globalThis.gc === 'function') {
+        if (mode === "warmup" && typeof globalThis.gc === "function") {
           globalThis.gc();
         }
       },
@@ -71,11 +67,11 @@ export const benchEffect = (
       // signal: abortSignal,
     });
 
-    console.log('bench', bench);
+    console.log("bench", bench);
 
     populateBench(bench);
 
-    console.log('bench', bench);
+    console.log("bench", bench);
 
     yield* Effect.try({
       try: () => {
@@ -84,24 +80,20 @@ export const benchEffect = (
       catch: (err) => {
         Effect.logError(err);
         // TODO: Why does this not show up in the type...
-        return new Error('Bench failed');
+        return new Error("Bench failed");
       },
     });
 
     const table = bench.table();
 
-    console.log('table', table);
+    console.log("table", table);
 
     const parsedTable = TableResultSchema.array().parse(table);
     const sortedTable = parsedTable.sort((a, b) => {
-      const aThroughput =
-        a['Throughput average (ops/s)'].split('\xb1')[0] ?? '';
-      const bThroughput =
-        b['Throughput average (ops/s)'].split('\xb1')[0] ?? '';
+      const aThroughput = a["Throughput average (ops/s)"].split("\xb1")[0] ?? "";
+      const bThroughput = b["Throughput average (ops/s)"].split("\xb1")[0] ?? "";
 
-      return (
-        Number.parseInt(bThroughput, 10) - Number.parseInt(aThroughput, 10)
-      );
+      return Number.parseInt(bThroughput, 10) - Number.parseInt(aThroughput, 10);
     });
 
     // setData(sortedTable);
@@ -111,20 +103,16 @@ export const benchEffect = (
     return sortedTable;
   });
 
-export const updateBench = async (
-  time: number,
-  iterations: number,
-  teardown?: Hook
-) => {
-  console.log('starting bench');
+export const updateBench = async (time: number, iterations: number, teardown?: Hook) => {
+  console.log("starting bench");
 
   const bench = new Bench({
     time,
     iterations,
-    name: 'Validator Benchmarks',
+    name: "Validator Benchmarks",
     setup: (_task, mode) => {
       // Run the garbage collector before warmup at each cycle
-      if (mode === 'warmup' && typeof globalThis.gc === 'function') {
+      if (mode === "warmup" && typeof globalThis.gc === "function") {
         globalThis.gc();
       }
     },
@@ -139,11 +127,11 @@ export const updateBench = async (
     // signal: abortSignal,
   });
 
-  console.log('bench', bench);
+  console.log("bench", bench);
 
   populateBench(bench);
 
-  console.log('bench', bench);
+  console.log("bench", bench);
 
   bench.runSync();
 
@@ -159,12 +147,12 @@ export const updateBench = async (
 
   const table = bench.table();
 
-  console.log('table', table);
+  console.log("table", table);
 
   const parsedTable = TableResultSchema.array().parse(table);
   const sortedTable = parsedTable.sort((a, b) => {
-    const aThroughput = a['Throughput average (ops/s)'].split('\xb1')[0] ?? '';
-    const bThroughput = b['Throughput average (ops/s)'].split('\xb1')[0] ?? '';
+    const aThroughput = a["Throughput average (ops/s)"].split("\xb1")[0] ?? "";
+    const bThroughput = b["Throughput average (ops/s)"].split("\xb1")[0] ?? "";
 
     return Number.parseInt(bThroughput, 10) - Number.parseInt(aThroughput, 10);
   });

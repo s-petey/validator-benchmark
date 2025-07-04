@@ -1,56 +1,56 @@
-import { a } from '@arrirpc/schema';
-import { Value } from '@sinclair/typebox/value';
-import cronometro from 'cronometro';
-import { Schema } from 'effect';
-import { safeParse } from 'valibot';
-import { writeReport } from '../fileWriter.js';
-import * as ajv from '../schemas/ajv.js';
-import * as arktype from '../schemas/arktype.js';
-import * as arri from '../schemas/arri.js';
-import * as effect from '../schemas/effectSchema.js';
-import * as joi from '../schemas/joi.js';
-import * as myzod from '../schemas/myzod.js';
-import * as typebox from '../schemas/typebox.js';
-import * as valibot from '../schemas/valibot.js';
-import * as yup from '../schemas/yup.js';
-import * as zod from '../schemas/zod.js';
-import * as zod4 from '../schemas/zod4.js';
-import { user } from './user.js';
+import { a } from "@arrirpc/schema";
+import { Value } from "@sinclair/typebox/value";
+import cronometro from "cronometro";
+import { Schema } from "effect";
+import { safeParse } from "valibot";
+import { writeReport } from "../fileWriter.js";
+import * as ajv from "../schemas/ajv.js";
+import * as arktype from "../schemas/arktype.js";
+import * as arri from "../schemas/arri.js";
+import * as effect from "../schemas/effectSchema.js";
+import * as joi from "../schemas/joi.js";
+import * as myzod from "../schemas/myzod.js";
+import * as typebox from "../schemas/typebox.js";
+import * as valibot from "../schemas/valibot.js";
+import * as yup from "../schemas/yup.js";
+import * as zod from "../schemas/zod.js";
+import * as zod4 from "../schemas/zod4.js";
+import { user } from "./user.js";
 
 cronometro(
   {
-    arri: function () {
+    arri: () => {
       a.validate(arri.baseSchema, user);
     },
-    ajv: function () {
+    ajv: () => {
       ajv.baseSchema(user);
     },
-    joi: function () {
+    joi: () => {
       joi.baseSchema.validate(user);
     },
-    myzod: function () {
+    myzod: () => {
       myzod.baseSchema.try(user);
     },
-    yup: function () {
+    yup: () => {
       yup.baseSchema.isValidSync(user, { strict: true });
     },
-    zod: function () {
+    zod: () => {
       zod.baseSchema.safeParse(user);
     },
-    zod4: function () {
+    zod4: () => {
       zod4.baseSchema.safeParse(user);
     },
-    arktype: function () {
+    arktype: () => {
       arktype.baseSchema(user);
     },
     // TODO: I don't know if this was done properly
-    effect: function () {
+    effect: () => {
       Schema.decodeEither(effect.baseSchema)(user);
     },
-    valibot: function () {
+    valibot: () => {
       safeParse(valibot.baseSchema, user);
     },
-    typebox: function () {
+    typebox: () => {
       Value.Check(typebox.baseSchema, user);
     },
   },
@@ -64,6 +64,6 @@ cronometro(
       throw err;
     }
     console.log(JSON.stringify(results, null, 2));
-    writeReport('single_types', JSON.stringify(results, null, 2));
-  }
+    writeReport("single_types", JSON.stringify(results, null, 2));
+  },
 );
