@@ -68,7 +68,7 @@ function HomeComponent() {
   const [selectedValidators, setSelectedValidators] = useState(() => validators.map((v) => v.name));
   const [formState, setFormState] = useState({
     time,
-    iterations, 
+    iterations,
     selectedValidators,
   });
   const [progress, setProgress] = useState("");
@@ -93,7 +93,7 @@ function HomeComponent() {
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
         <div className="w-full px-4">
           {/* List currently included validators */}
-          <section className='flex flex-col items-center gap-2'>
+          <section className="flex flex-col items-center gap-2">
             <h2 className="text-2xl font-bold">Select validators to run</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full justify-items-center">
               {validators.map(({ href, name }) => (
