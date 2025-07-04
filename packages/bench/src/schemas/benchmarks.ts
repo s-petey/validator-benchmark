@@ -27,6 +27,34 @@ type ValidatorResource = {
 
 export const validators = [
   {
+    href: "https://www.npmjs.com/package/ajv",
+    name: "ajv",
+    singleAction() {
+      ajvDetailsSchema(user);
+    },
+    multipleActions() {
+      users.forEach((user) => ajvDetailsSchema(user));
+    },
+  } satisfies ValidatorResource,
+  {
+    href: "https://arktype.io/",
+    name: "ArkType",
+    singleAction() {
+      const result = arktypeDetailsSchema(user);
+      if (result instanceof type.errors) {
+        throw result;
+      }
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        const result = arktypeDetailsSchema(user);
+        if (result instanceof type.errors) {
+          throw result;
+        }
+      });
+    },
+  } satisfies ValidatorResource,
+  {
     href: "https://www.npmjs.com/package/@arrirpc/schema",
     name: "arri",
     singleAction() {
@@ -37,13 +65,13 @@ export const validators = [
     },
   } satisfies ValidatorResource,
   {
-    href: "https://www.npmjs.com/package/ajv",
-    name: "ajv",
+    href: "https://effect.website/docs/schema/introduction/",
+    name: "effect",
     singleAction() {
-      ajvDetailsSchema(user);
+      Schema.decodeSync(effectDetailsSchema)(user);
     },
     multipleActions() {
-      users.forEach((user) => ajvDetailsSchema(user));
+      users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
   } satisfies ValidatorResource,
   // TODO: Figure out why JOI errors...
@@ -57,6 +85,38 @@ export const validators = [
   //     users.forEach((user) => joiDetailsSchema.validate(user));
   //   },
   // },
+  {
+    href: "https://www.npmjs.com/package/myzod",
+    name: "myzod",
+    singleAction() {
+      myzodDetailsSchema.try(user);
+    },
+    multipleActions() {
+      users.forEach((user) => myzodDetailsSchema.try(user));
+    },
+  } satisfies ValidatorResource,
+  {
+    href: "https://github.com/sinclairzx81/typebox",
+    name: "typebox",
+    singleAction() {
+      Value.Parse(typeboxDetailsSchema, user);
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        Value.Parse(typeboxDetailsSchema, user);
+      });
+    },
+  } satisfies ValidatorResource,
+  {
+    href: "https://valibot.dev/",
+    name: "valibot",
+    singleAction() {
+      parse(valibotDetailsSchema, user);
+    },
+    multipleActions() {
+      users.forEach((user) => parse(valibotDetailsSchema, user));
+    },
+  } satisfies ValidatorResource,
   {
     href: "https://www.npmjs.com/package/yup",
     name: "yup",
@@ -79,72 +139,12 @@ export const validators = [
   } satisfies ValidatorResource,
   {
     href: "https://www.npmjs.com/package/zod",
-    name: "zod4",
+    name: "zodV4",
     singleAction() {
       zod4DetailsSchema.parse(user);
     },
     multipleActions() {
       users.forEach((user) => zod4DetailsSchema.parse(user));
-    },
-  } satisfies ValidatorResource,
-  {
-    href: "https://www.npmjs.com/package/myzod",
-    name: "myzod",
-    singleAction() {
-      myzodDetailsSchema.try(user);
-    },
-    multipleActions() {
-      users.forEach((user) => myzodDetailsSchema.try(user));
-    },
-  } satisfies ValidatorResource,
-  {
-    href: "https://valibot.dev/",
-    name: "valibot",
-    singleAction() {
-      parse(valibotDetailsSchema, user);
-    },
-    multipleActions() {
-      users.forEach((user) => parse(valibotDetailsSchema, user));
-    },
-  } satisfies ValidatorResource,
-  {
-    href: "https://effect.website/docs/schema/introduction/",
-    name: "effect",
-    singleAction() {
-      Schema.decodeSync(effectDetailsSchema)(user);
-    },
-    multipleActions() {
-      users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
-    },
-  } satisfies ValidatorResource,
-  {
-    href: "https://github.com/sinclairzx81/typebox",
-    name: "typebox",
-    singleAction() {
-      Value.Parse(typeboxDetailsSchema, user);
-    },
-    multipleActions() {
-      users.forEach((user) => {
-        Value.Parse(typeboxDetailsSchema, user);
-      });
-    },
-  } satisfies ValidatorResource,
-  {
-    href: "https://arktype.io/",
-    name: "ArkType",
-    singleAction() {
-      const result = arktypeDetailsSchema(user);
-      if (result instanceof type.errors) {
-        throw result;
-      }
-    },
-    multipleActions() {
-      users.forEach((user) => {
-        const result = arktypeDetailsSchema(user);
-        if (result instanceof type.errors) {
-          throw result;
-        }
-      });
     },
   } satisfies ValidatorResource,
 ] as const;
