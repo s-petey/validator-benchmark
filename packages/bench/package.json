@@ -11,7 +11,7 @@
     "bench:many:types": "node dist/bench-many-objects/types-only-validation.benchmark.js"
   },
   "exports": {
-    "./schemas": "./src/schemas/benchmarks.ts"
+    "./*": "./src/schemas/*.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "9.8.0",

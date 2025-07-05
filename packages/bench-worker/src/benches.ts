@@ -1,4 +1,4 @@
-import { validators } from "@locals/bench/schemas";
+import { validators } from "@locals/bench/benchmarks";
 import { Effect } from "effect";
 import { Bench, type Hook } from "tinybench";
 import { TableResultSchema } from "./bench.schemas.js";
