@@ -1,4 +1,4 @@
-import { validators } from "@locals/bench/schemas";
+import { validators } from "@locals/bench/benchmarks";
 import { expose } from "comlink";
 import { Bench } from "tinybench";
 import { TableResultSchema } from "./bench.schemas.js";

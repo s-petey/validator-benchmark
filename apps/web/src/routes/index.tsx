@@ -1,8 +1,8 @@
-import { validators } from "@locals/bench/schemas";
+import { validators } from "@locals/bench/benchmarks";
 import { TableResultSchema } from "@locals/bench-worker/bench.schemas";
 import ComWorker from "@locals/bench-worker/comlinkWorker?worker";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   createColumnHelper,
   flexRender,
@@ -78,7 +78,10 @@ function HomeComponent() {
     queryFn: () =>
       workerApi.benchWorker(formState.time, formState.iterations, proxy(setProgress)).then((v) => {
         // Filter results based on selected validators
-        return v.filter((result) => formState.selectedValidators.includes(result["Task name"]));
+        return v.filter((result) =>
+          // @ts-expect-error We are comparing a string to a literal
+          formState.selectedValidators.includes(result["Task name"]),
+        );
       }),
     staleTime: Infinity,
     placeholderData: (a) => a,
@@ -88,6 +91,9 @@ function HomeComponent() {
     <main className="flex flex-col justify-center gap-4">
       <header className="flex flex-col p-4">
         <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
+        <Link to="/compare" className="text-blue-500 hover:text-blue-700">
+          Compare syntax
+        </Link>
       </header>
 
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
@@ -108,14 +114,29 @@ function HomeComponent() {
                     }}
                     id={`checkbox-${name}`}
                   />
-                  <label htmlFor={`checkbox-${name}`} className="cursor-pointer">
+                  <label htmlFor={`checkbox-${name}`} className="cursor-pointer flex items-center gap-1">
+                    <span>{name}</span>
                     <a
                       className="text-blue-700 hover:underline dark:text-blue-500"
                       href={href}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {name}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <title>Open in new tab</title>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
                     </a>
                   </label>
                 </div>

@@ -35,7 +35,7 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => ajvDetailsSchema(user));
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://arktype.io/",
     name: "ArkType",
@@ -53,7 +53,7 @@ export const validators = [
         }
       });
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://www.npmjs.com/package/@arrirpc/schema",
     name: "arri",
@@ -63,7 +63,7 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => a.parse(arriDetailsSchema, user));
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://effect.website/docs/schema/introduction/",
     name: "effect",
@@ -73,7 +73,7 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
-  } satisfies ValidatorResource,
+  },
   // TODO: Figure out why JOI errors...
   // {
   //   href: 'https://www.npmjs.com/package/joi',
@@ -94,7 +94,7 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => myzodDetailsSchema.try(user));
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://github.com/sinclairzx81/typebox",
     name: "typebox",
@@ -106,7 +106,7 @@ export const validators = [
         Value.Parse(typeboxDetailsSchema, user);
       });
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://valibot.dev/",
     name: "valibot",
@@ -116,7 +116,7 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => parse(valibotDetailsSchema, user));
     },
-  } satisfies ValidatorResource,
+  },
   {
     href: "https://www.npmjs.com/package/yup",
     name: "yup",
@@ -126,9 +126,9 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => yupDetailsSchema.isValidSync(user, { strict: true }));
     },
-  } satisfies ValidatorResource,
+  },
   {
-    href: "https://www.npmjs.com/package/zod",
+    href: "https://v3.zod.dev/",
     name: "zod",
     singleAction() {
       zodDetailsSchema.parse(user);
@@ -136,9 +136,9 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => zodDetailsSchema.parse(user));
     },
-  } satisfies ValidatorResource,
+  },
   {
-    href: "https://www.npmjs.com/package/zod",
+    href: "https://zod.dev/v4",
     name: "zodV4",
     singleAction() {
       zod4DetailsSchema.parse(user);
@@ -146,5 +146,9 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => zod4DetailsSchema.parse(user));
     },
-  } satisfies ValidatorResource,
-] as const;
+  },
+] as const satisfies Readonly<ValidatorResource[]>;
+
+export type Validator = (typeof validators)[number];
+
+export const validatorNames = validators.map((v) => v.name);
