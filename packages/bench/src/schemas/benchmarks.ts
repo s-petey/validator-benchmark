@@ -128,7 +128,7 @@ export const validators = [
     },
   },
   {
-    href: "https://www.npmjs.com/package/zod",
+    href: "https://v3.zod.dev/",
     name: "zod",
     singleAction() {
       zodDetailsSchema.parse(user);
@@ -138,7 +138,7 @@ export const validators = [
     },
   },
   {
-    href: "https://www.npmjs.com/package/zod",
+    href: "https://zod.dev/v4",
     name: "zodV4",
     singleAction() {
       zod4DetailsSchema.parse(user);
@@ -148,5 +148,7 @@ export const validators = [
     },
   },
 ] as const satisfies Readonly<ValidatorResource[]>;
+
+export type Validator = (typeof validators)[number];
 
 export const validatorNames = validators.map((v) => v.name);
