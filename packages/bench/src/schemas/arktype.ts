@@ -15,8 +15,8 @@ export const baseSchema = type({
 
 export const detailsSchema = type({
   name: type({
-    first: "0 < string <= 999 ",
-    last: "0 < string <= 999 ",
+    first: "0 < string <= 999",
+    last: "0 < string <= 999",
   }),
   login: type({
     email: "string.email",

@@ -14,10 +14,8 @@ function RouteComponent() {
     setChecked((prev) => {
       if (prev.includes(name)) {
         return prev.filter((n) => n !== name);
-      } else if (prev.length < 3) {
-        return [...prev, name];
       } else {
-        return prev;
+        return [...prev, name];
       }
     });
   }
@@ -31,27 +29,24 @@ function RouteComponent() {
         </Link>
       </header>
 
-      <div className="flex flex-col gap-4 items-center">
-        <p className="text-small text-gray-400 text-center">Select up to 3 validators to compare</p>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {validatorNames.map((name) => (
-            <li key={name} className="flex items-center space-x-3 bg-gray-800 rounded-lg px-4 py-3 shadow">
-              <input
-                id={name}
-                type="checkbox"
-                checked={checked.includes(name)}
-                onChange={() => handleChange(name)}
-                disabled={!checked.includes(name) && checked.length >= 3}
-                className="form-checkbox h-5 w-5 text-blue-600 accent-blue-500"
-              />
-              <label htmlFor={name} className="text-white text-lg cursor-pointer select-none">
-                {name}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <ul className="items-center mx-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {validatorNames.map((name) => (
+          <li key={name} className="flex items-center space-x-3 bg-gray-800 rounded-lg px-4 py-3 shadow">
+            <input
+              id={name}
+              type="checkbox"
+              checked={checked.includes(name)}
+              onChange={() => handleChange(name)}
+              className="form-checkbox h-5 w-5 text-blue-600 accent-blue-500"
+            />
+            <label htmlFor={name} className="text-white text-lg cursor-pointer select-none">
+              {name}
+            </label>
+          </li>
+        ))}
+      </ul>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4 mt-4">
         {checked.map((name) => (
           <ValidatorSnippet key={name} validatorName={name} />
         ))}
