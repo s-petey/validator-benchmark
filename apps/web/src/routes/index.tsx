@@ -76,13 +76,15 @@ function HomeComponent() {
   const { data, status, isPlaceholderData } = useQuery({
     queryKey: ["bench", formState.time, formState.iterations, formState.selectedValidators],
     queryFn: () =>
-      workerApi.benchWorker(formState.time, formState.iterations, proxy(setProgress)).then((v) => {
-        // Filter results based on selected validators
-        return v.filter((result) =>
-          // @ts-expect-error We are comparing a string to a literal
-          formState.selectedValidators.includes(result["Task name"]),
-        );
-      }),
+      workerApi
+        .benchWorker(formState.time, formState.iterations, proxy(setProgress), formState.selectedValidators)
+        .then((v) => {
+          // Filter results based on selected validators
+          return v.filter((result) =>
+            // @ts-expect-error We are comparing a string to a literal
+            formState.selectedValidators.includes(result["Task name"]),
+          );
+        }),
     staleTime: Infinity,
     placeholderData: (a) => a,
   });

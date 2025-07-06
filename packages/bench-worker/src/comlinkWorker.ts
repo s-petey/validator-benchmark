@@ -3,13 +3,16 @@ import { expose } from "comlink";
 import { Bench } from "tinybench";
 import { TableResultSchema } from "./bench.schemas.js";
 
-function populateBench(bench: Bench) {
+function populateBench(bench: Bench, workerNames: string[]) {
   for (const { name, singleAction } of validators) {
-    bench.add(name, singleAction);
+    const found = workerNames.find((workerName) => workerName.toLowerCase() === name.toLowerCase());
+    if (found) {
+      bench.add(name, singleAction);
+    }
   }
 }
 
-async function benchWorker(time: number, iterations: number, setProgress: (v: string) => void) {
+async function benchWorker(time: number, iterations: number, setProgress: (v: string) => void, workerNames: string[]) {
   const bench = new Bench({
     time,
     iterations,
@@ -28,7 +31,7 @@ async function benchWorker(time: number, iterations: number, setProgress: (v: st
     throws: true,
   });
 
-  populateBench(bench);
+  populateBench(bench, workerNames);
 
   try {
     await bench.run();
