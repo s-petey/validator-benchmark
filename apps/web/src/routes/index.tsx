@@ -93,9 +93,14 @@ function HomeComponent() {
     <main className="flex flex-col justify-center gap-4">
       <header className="flex flex-col p-4">
         <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
-        <Link to="/compare" className="text-blue-500 hover:text-blue-700">
-          Compare syntax
-        </Link>
+        <div className="flex gap-4">
+          <Link to="/compare" className="text-blue-500 hover:text-blue-700">
+            Compare syntax
+          </Link>
+          <Link to="/presentation" className="text-blue-500 hover:text-blue-700">
+            📊 Performance Presentation
+          </Link>
+        </div>
       </header>
 
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">

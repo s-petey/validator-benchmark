@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PresentationRoute = PresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompareRoute = CompareRouteImport.update({
   id: '/compare',
   path: '/compare',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/presentation': typeof PresentationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/presentation': typeof PresentationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/compare': typeof CompareRoute
+  '/presentation': typeof PresentationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/compare'
+  fullPaths: '/' | '/compare' | '/presentation'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/compare'
-  id: '__root__' | '/' | '/compare'
+  to: '/' | '/compare' | '/presentation'
+  id: '__root__' | '/' | '/compare' | '/presentation'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CompareRoute: typeof CompareRoute
+  PresentationRoute: typeof PresentationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/presentation': {
+      id: '/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PresentationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compare': {
       id: '/compare'
       path: '/compare'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CompareRoute: CompareRoute,
+  PresentationRoute: PresentationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

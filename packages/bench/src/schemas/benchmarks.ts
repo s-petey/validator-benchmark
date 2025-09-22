@@ -147,9 +147,7 @@ export const validators = [
       yupDetailsSchema.isValidSync(user, { strict: true });
     },
     multipleActions() {
-      users.forEach((user) =>
-        yupDetailsSchema.isValidSync(user, { strict: true }),
-      );
+      users.forEach((user) => yupDetailsSchema.isValidSync(user, { strict: true }));
     },
   },
   {
