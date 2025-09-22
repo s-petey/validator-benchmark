@@ -1,7 +1,7 @@
 import { a } from "@arrirpc/schema";
 import { Value } from "@sinclair/typebox/value";
 import { type } from "arktype";
-import { Schema } from "effect";
+import { Either, Schema } from "effect";
 import { parse } from "valibot";
 import { users } from "../bench-many-objects/users.js";
 import { user } from "../bench-single-object/user.js";
@@ -9,6 +9,7 @@ import { detailsSchema as ajvDetailsSchema } from "../schemas/ajv.js";
 import { detailsSchema as arktypeDetailsSchema } from "../schemas/arktype.js";
 import { detailsSchema as arriDetailsSchema } from "../schemas/arri.js";
 import { detailsSchema as effectDetailsSchema } from "../schemas/effectSchema.js";
+import { detailsSchema as ioTsDetailsSchema } from "../schemas/ioTs.js";
 import { detailsSchema as myzodDetailsSchema } from "../schemas/myzod.js";
 import { detailsSchema as typeboxDetailsSchema } from "../schemas/typebox.js";
 import { detailsSchema as valibotDetailsSchema } from "../schemas/valibot.js";
@@ -74,6 +75,28 @@ export const validators = [
       users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
     },
   },
+  {
+    // Note it looks like IO-TS is now moved to schema and the peer dependency FP-TS is depricated
+    // in favor of Effect -- https://x.com/MichaelArnaldi/status/1672228793631506432
+    href: "https://github.com/gcanti/io-ts",
+    name: "io-ts",
+    singleAction() {
+      const result = ioTsDetailsSchema.decode(user);
+      // @ts-expect-error -- Left type is unknown -- Ignoring...
+      if (Either.isLeft(result)) {
+        throw result.left;
+      }
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        const result = ioTsDetailsSchema.decode(user);
+        // @ts-expect-error -- Left type is unknown -- Ignoring...
+        if (Either.isLeft(result)) {
+          throw result.left;
+        }
+      });
+    },
+  },
   // TODO: Figure out why JOI errors...
   // {
   //   href: 'https://www.npmjs.com/package/joi',
@@ -124,7 +147,9 @@ export const validators = [
       yupDetailsSchema.isValidSync(user, { strict: true });
     },
     multipleActions() {
-      users.forEach((user) => yupDetailsSchema.isValidSync(user, { strict: true }));
+      users.forEach((user) =>
+        yupDetailsSchema.isValidSync(user, { strict: true }),
+      );
     },
   },
   {

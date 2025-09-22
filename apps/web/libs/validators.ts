@@ -3,6 +3,7 @@ import arktypeRaw from "@locals/bench/arktype?raw";
 import arriRaw from "@locals/bench/arri?raw";
 import type { validatorNames } from "@locals/bench/benchmarks";
 import effectRaw from "@locals/bench/effectSchema?raw";
+import ioTsRaw from "@locals/bench/ioTs?raw";
 import myzodRaw from "@locals/bench/myzod?raw";
 import typeboxRaw from "@locals/bench/typebox?raw";
 import valibotRaw from "@locals/bench/valibot?raw";
@@ -29,6 +30,7 @@ export const validatorActualDetailCode = {
 	arktype: getDetailsSection(arktypeRaw),
 	arri: getDetailsSection(arriRaw),
 	effect: getDetailsSection(effectRaw),
+	"io-ts": getDetailsSection(ioTsRaw),
 	myzod: getDetailsSection(myzodRaw),
 	typebox: getDetailsSection(typeboxRaw),
 	valibot: getDetailsSection(valibotRaw),
