@@ -97,7 +97,7 @@ function HomeComponent() {
           <Link to="/compare" className="text-blue-500 hover:text-blue-700">
             Compare syntax
           </Link>
-          <Link to="/presentation" className="text-blue-500 hover:text-blue-700">
+          <Link to="/presentation" search={{ slide: 0 }} className="text-blue-500 hover:text-blue-700">
             📊 Performance Presentation
           </Link>
         </div>
