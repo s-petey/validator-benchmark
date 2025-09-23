@@ -127,7 +127,7 @@ function PerformanceMattersSlide() {
         <div className="space-y-6">
           <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg border-l-4 border-red-500">
             <h3 className="text-lg font-semibold text-red-800 dark:text-red-300 mb-3">🚨 The Problem</h3>
-            <ul className="space-y-2 text-sm text-red-700 dark:text-red-200">
+            <ul className="space-y-2 text-base text-red-700 dark:text-red-200">
               <li>• External APIs change without notice</li>
               <li>• User input can be malicious or malformed</li>
               <li>• TypeScript types are erased at runtime</li>
@@ -138,7 +138,7 @@ function PerformanceMattersSlide() {
 
           <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border-l-4 border-blue-500">
             <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">🛡️ The Solution</h3>
-            <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-200">
+            <ul className="space-y-2 text-base text-blue-700 dark:text-blue-200">
               <li>• Validate data at runtime boundaries</li>
               <li>• Fail fast with clear error messages</li>
               <li>• Transform and sanitize untrusted input</li>
@@ -153,48 +153,48 @@ function PerformanceMattersSlide() {
             <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-4">🎯 Critical Use Cases</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   1
                 </div>
                 <div>
                   <div className="font-medium text-green-800 dark:text-green-300">API Boundaries</div>
-                  <div className="text-sm text-green-700 dark:text-green-200">
+                  <div className="text-base text-green-700 dark:text-green-200">
                     Validate external API responses and incoming requests
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   2
                 </div>
                 <div>
                   <div className="font-medium text-green-800 dark:text-green-300">User Input</div>
-                  <div className="text-sm text-green-700 dark:text-green-200">
+                  <div className="text-base text-green-700 dark:text-green-200">
                     Forms, uploads, and any user-generated content
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   3
                 </div>
                 <div>
                   <div className="font-medium text-green-800 dark:text-green-300">Data Streams</div>
-                  <div className="text-sm text-green-700 dark:text-green-200">
+                  <div className="text-base text-green-700 dark:text-green-200">
                     Real-time events, webhooks, and message queues
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   4
                 </div>
                 <div>
                   <div className="font-medium text-green-800 dark:text-green-300">Configuration</div>
-                  <div className="text-sm text-green-700 dark:text-green-200">
+                  <div className="text-base text-green-700 dark:text-green-200">
                     Environment variables and config files
                   </div>
                 </div>
@@ -217,15 +217,15 @@ function PerformanceMattersSlide() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">10,000+</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Validations per second</div>
+              <div className="text-base text-gray-600 dark:text-gray-300">Validations per second</div>
             </div>
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">100x</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Performance difference</div>
+              <div className="text-base text-gray-600 dark:text-gray-300">Performance difference</div>
             </div>
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">DX</div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Developer experience matters</div>
+              <div className="text-base text-gray-600 dark:text-gray-300">Developer experience matters</div>
             </div>
           </div>
         </div>
@@ -262,7 +262,7 @@ function PropPollutionSlide() {
 }`}</code>
               </pre>
             </div>
-            <p className="text-sm text-red-700 dark:text-red-200 mt-3">
+            <p className="text-base text-red-700 dark:text-red-200 mt-3">
               This data can leak sensitive information or cause security vulnerabilities.
             </p>
           </div>
@@ -310,14 +310,14 @@ console.log(user);
 // Sensitive data automatically stripped!`}</code>
               </pre>
             </div>
-            <p className="text-sm text-green-700 dark:text-green-200 mt-3">
+            <p className="text-base text-green-700 dark:text-green-200 mt-3">
               By default, Zod removes unknown properties, protecting your application.
             </p>
           </div>
 
           <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">🔒 Security Benefits</h3>
-            <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-200">
+            <ul className="space-y-2 text-base text-blue-700 dark:text-blue-200">
               <li>• Prevents sensitive data leaks to frontend</li>
               <li>• Reduces attack surface area</li>
               <li>• Ensures data consistency across your app</li>
@@ -345,11 +345,11 @@ function HeyAPIPluginsSlide() {
         <div className="space-y-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">🧩 Plugin Architecture</h3>
-            <p className="text-sm text-blue-700 dark:text-blue-200 mb-4">
+            <p className="text-base text-blue-700 dark:text-blue-200 mb-4">
               Hey API supports validation plugins for popular libraries, giving you runtime safety with your preferred
               tool.
             </p>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-base">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 <strong>Zod</strong> - TypeScript-first schema validation
@@ -417,7 +417,7 @@ export async function getUser(id: number) {
 
           <div className="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-3">✨ Benefits</h3>
-            <ul className="space-y-2 text-sm text-yellow-700 dark:text-yellow-200">
+            <ul className="space-y-2 text-base text-yellow-700 dark:text-yellow-200">
               <li>
                 • Type-safe at compile time <strong>AND</strong> runtime
               </li>
@@ -447,7 +447,7 @@ function StandardSchemaSlide() {
         <div className="space-y-6">
           <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">🎯 The Problem</h3>
-            <p className="text-sm text-blue-700 dark:text-blue-200 mb-4">
+            <p className="text-base text-blue-700 dark:text-blue-200 mb-4">
               Every validation library has its own API. Tools must write custom adapters for each one.
             </p>
             <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
@@ -464,7 +464,7 @@ const arktypeResult = arktypeSchema(data);
 
           <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-3">⚡ The Solution</h3>
-            <p className="text-sm text-green-700 dark:text-green-200 mb-4">
+            <p className="text-base text-green-700 dark:text-green-200 mb-4">
               Standard Schema provides one interface that all validation libraries can implement.
             </p>
             <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
@@ -486,10 +486,10 @@ function validate<T extends StandardSchemaV1>(
         <div className="space-y-6">
           <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-purple-800 dark:text-purple-300 mb-3">🏗️ Who's Behind It</h3>
-            <p className="text-sm text-purple-700 dark:text-purple-200 mb-3">
+            <p className="text-base text-purple-700 dark:text-purple-200 mb-3">
               Created by the makers of <strong>Zod</strong>, <strong>Valibot</strong>, and <strong>ArkType</strong>.
             </p>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-2 text-base">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 <span>Already implemented by 20+ validation libraries</span>
@@ -507,7 +507,7 @@ function validate<T extends StandardSchemaV1>(
 
           <div className="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
             <h3 className="text-lg font-semibold text-orange-800 dark:text-orange-300 mb-3">🚀 Benefits</h3>
-            <ul className="space-y-2 text-sm text-orange-700 dark:text-orange-200">
+            <ul className="space-y-2 text-base text-orange-700 dark:text-orange-200">
               <li>
                 • <strong>Ecosystem unification:</strong> Write once, support all validators
               </li>
@@ -527,7 +527,7 @@ function validate<T extends StandardSchemaV1>(
           </div>
 
           <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg text-center">
-            <p className="text-sm font-medium">
+            <p className="text-base font-medium">
               🌐 Learn more at{" "}
               <a
                 href="https://standardschema.dev"
@@ -616,7 +616,7 @@ function ThroughputSlide({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Time (ms)</label>
+            <label className="block text-base font-medium mb-1">Time (ms)</label>
             <input
               type="number"
               min="1"
@@ -627,7 +627,7 @@ function ThroughputSlide({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Iterations</label>
+            <label className="block text-base font-medium mb-1">Iterations</label>
             <input
               type="number"
               min="1"
@@ -638,7 +638,7 @@ function ThroughputSlide({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Run Benchmark</label>
+            <label className="block text-base font-medium mb-1">Run Benchmark</label>
             <button
               onClick={onStartBenchmark}
               disabled={isPlaceholderData || status === "pending"}
@@ -650,7 +650,7 @@ function ThroughputSlide({
         </div>
 
         <div className="mt-4">
-          <label className="block text-sm font-medium mb-2">Selected Validators ({selectedValidators.length})</label>
+          <label className="block text-base font-medium mb-2">Selected Validators ({selectedValidators.length})</label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {validators.map((v) => (
               <label key={v.name} className="flex items-center space-x-2">
@@ -666,7 +666,7 @@ function ThroughputSlide({
                   }}
                   disabled={isPlaceholderData || status === "pending"}
                 />
-                <span className="text-sm">{v.name}</span>
+                <span className="text-base">{v.name}</span>
               </label>
             ))}
           </div>
@@ -675,10 +675,10 @@ function ThroughputSlide({
 
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="text-base text-gray-600 dark:text-gray-400">
             {isPlaceholderData || status === "pending" ? "Running benchmarks..." : `${data.length} validators tested`}
           </div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="text-base text-gray-600 dark:text-gray-400">
             {throughputData.length > 0 && `${(throughputData[0]!.throughput / 1000000).toFixed(1)}M ops/s (best)`}
           </div>
         </div>
@@ -687,10 +687,10 @@ function ThroughputSlide({
           <div className="grid gap-2">
             {throughputData.map((item, index) => (
               <div key={item.name} className="flex items-center gap-4">
-                <div className="w-20 text-right font-mono text-sm">{item.name}</div>
+                <div className="w-20 text-right font-mono text-base">{item.name}</div>
                 <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-8 relative">
                   <div
-                    className={`h-8 rounded-full flex items-center justify-end pr-2 text-white text-sm font-semibold ${
+                    className={`h-8 rounded-full flex items-center justify-end pr-2 text-white text-base font-semibold ${
                       index === 0
                         ? "bg-green-500"
                         : index === 1
@@ -718,7 +718,7 @@ function ThroughputSlide({
         )}
 
         {throughputData.length > 0 && (
-          <div className="text-sm text-gray-600 dark:text-gray-400 mt-4">
+          <div className="text-base text-gray-600 dark:text-gray-400 mt-4">
             Higher is better. {throughputData[0]?.name} leads with{" "}
             {(throughputData[0]!.throughput / 1000000).toFixed(1)}M operations per second.
           </div>
@@ -756,7 +756,7 @@ function InsightsSlide({
       {/* Benchmark Configuration Summary */}
       <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
         <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-2">📋 Benchmark Configuration</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-base">
           <div>
             <span className="font-medium">Duration:</span> {formState.time}ms
           </div>
@@ -780,7 +780,7 @@ function InsightsSlide({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-2">🏆 Top Performers</h3>
-              <ul className="space-y-1 text-sm">
+              <ul className="space-y-1 text-base">
                 {throughputData.slice(0, 3).map((item) => (
                   <li key={item.name}>
                     <strong>{item.name}:</strong> {(item.throughput / 1000000).toFixed(1)}M ops/s
@@ -792,7 +792,7 @@ function InsightsSlide({
               <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
                 ⚡ Low Latency Leaders
               </h3>
-              <ul className="space-y-1 text-sm">
+              <ul className="space-y-1 text-base">
                 {throughputData
                   .sort((a, b) => a.latency - b.latency)
                   .slice(0, 3)
@@ -806,7 +806,7 @@ function InsightsSlide({
           </div>
           <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
             <h3 className="text-lg font-semibold text-red-800 dark:text-red-300 mb-2">📊 Performance Spread</h3>
-            <p className="text-sm">
+            <p className="text-base">
               Performance varies by <strong>{performanceSpread}x</strong> between fastest ({fastest?.name}) and slowest
               ({slowest?.name}). Choose wisely based on your performance requirements.
             </p>
@@ -815,6 +815,99 @@ function InsightsSlide({
       ) : (
         <div className="text-center py-8 text-gray-500">Run benchmarks to see performance insights</div>
       )}
+    </div>
+  );
+}
+
+function ArkTypeEnvSlide() {
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-semibold mb-4">ArkType: Environment Variable Validation</h2>
+        <p className="text-xl text-gray-600 dark:text-gray-300">
+          Type-safe environment parsing with runtime validation
+        </p>
+      </div>
+
+      <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg">
+        <h3 className="text-lg font-semibold text-purple-800 dark:text-purple-300 mb-3">💡 Why This Matters</h3>
+        <div className="">
+          <div>
+            <strong className="text-purple-800 dark:text-purple-300">Fail Fast:</strong>
+            <p className="text-purple-700 dark:text-purple-200">
+              Catch configuration errors at startup, not in production
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-300 mb-3">❌ The Old Way</h3>
+            <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+              <pre className="text-base overflow-x-auto">
+                <code>{`// Unsafe environment access
+const config = {
+  port: Number(process.env.PORT) || 3000,
+  database: process.env.DATABASE_URL || '',
+  apiKey: process.env.API_KEY || '',
+  debug: process.env.NODE_ENV === 'development'
+};
+
+// What happens when:
+// - PORT is "abc"?
+// - DATABASE_URL is missing?
+// - API_KEY is empty?`}</code>
+              </pre>
+            </div>
+            <p className="text-base text-red-700 dark:text-red-200 mt-3">
+              Runtime errors, silent failures, and security vulnerabilities.
+            </p>
+          </div>
+
+          <div className="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-orange-800 dark:text-orange-300 mb-3">⚠️ Common Issues</h3>
+            <ul className="space-y-2 text-base text-orange-700 dark:text-orange-200">
+              <li>• Invalid port numbers causing server crashes</li>
+              <li>• Missing database URLs in production</li>
+              <li>• Empty API keys leading to authentication failures</li>
+              <li>• Type coercion bugs (strings vs numbers)</li>
+              <li>• No validation at startup time</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-3">✅ ArkType Solution</h3>
+            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+              <pre className="text-base overflow-x-auto">
+                <code>{`import { type } from 'arktype';
+
+const envSchema = type({
+  DATABASE_HOST: "string.host",
+  DATABASE_PORT: "number.port",
+  API_KEY: "string>10",
+  "NODE_ENV?": "'development' | 'production' | 'test'",
+  "DEBUG?": "string.alpha.toLowerCase.pipe(v => v === 'true')"
+});
+
+// Parse and validate at startup
+const config = envSchema(process.env);
+
+if (config instanceof type.errors) {
+  console.error("Invalid environment:", config.summary);
+  process.exit(1);
+}
+
+// Now 'config' is fully typed and validated!
+console.log(\`Server starting on port \${config.DATABASE_PORT}\`);`}</code>
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -828,11 +921,11 @@ function ServiceWorkersSlide() {
       <div className="space-y-4">
         <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">What are Web Workers?</h3>
-          <p className="text-sm mb-3">
+          <p className="text-base mb-3">
             Web Workers allow JavaScript to run computationally intensive tasks in background threads, separate from the
             main UI thread. This prevents blocking user interactions during heavy operations.
           </p>
-          <p className="text-sm">
+          <p className="text-base">
             This benchmark app uses Web Workers to keep the interface smooth and responsive while running validation
             benchmarks that would otherwise freeze the UI.
           </p>
@@ -840,7 +933,7 @@ function ServiceWorkersSlide() {
 
         <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
           <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-3">Implementation with Comlink</h3>
-          <p className="text-sm mb-2">
+          <p className="text-base mb-2">
             We use{" "}
             <a
               href="https://github.com/GoogleChromeLabs/comlink"
@@ -852,7 +945,7 @@ function ServiceWorkersSlide() {
             </a>{" "}
             by Google Chrome Labs to simplify worker communication.
           </p>
-          <p className="text-sm">
+          <p className="text-base">
             Comlink makes Web Workers feel like regular async functions, handling all the message passing complexity for
             us.
           </p>
@@ -868,7 +961,7 @@ function ChoosingValidatorSlide() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-green-800 dark:text-green-300 mb-3">🚀 High Performance</h3>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-base">
             <div>
               <strong>io-ts:</strong> Functional approach, excellent for functional programming codebases
             </div>
@@ -882,7 +975,7 @@ function ChoosingValidatorSlide() {
         </div>
         <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-300 mb-3">⚖️ Balanced Choice</h3>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-base">
             <div>
               <strong>zod:</strong> Great DX, TypeScript integration, good performance
             </div>
@@ -893,7 +986,7 @@ function ChoosingValidatorSlide() {
         </div>
         <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-purple-800 dark:text-purple-300 mb-3">🔧 Feature Rich</h3>
-          <div className="space-y-2 text-sm">
+          <div className="space-y-2 text-base">
             <div>
               <strong>yup:</strong> Object schema validation, transforms, async validation
             </div>
@@ -908,7 +1001,7 @@ function ChoosingValidatorSlide() {
           <p className="text-lg font-semibold">
             Consider: Performance requirements, bundle size, ecosystem, and developer experience
           </p>
-          <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
+          <p className="text-base mt-2 text-gray-600 dark:text-gray-400">
             For additional insight into popularity and adoption trends, view{" "}
             <a
               href="https://tanstack.com/stats/npm?packageGroups=%5B%7B%22packages%22%3A%5B%7B%22name%22%3A%22zod%22%7D%5D%2C%22color%22%3A%22%23ef4444%22%7D%2C%7B%22packages%22%3A%5B%7B%22name%22%3A%22io-ts%22%7D%5D%2C%22color%22%3A%22%233b82f6%22%7D%2C%7B%22packages%22%3A%5B%7B%22name%22%3A%22arktype%22%7D%5D%2C%22color%22%3A%22%2310b981%22%7D%2C%7B%22packages%22%3A%5B%7B%22name%22%3A%22valibot%22%7D%5D%2C%22color%22%3A%22%23f97316%22%7D%2C%7B%22packages%22%3A%5B%7B%22name%22%3A%22yup%22%7D%5D%2C%22color%22%3A%22%2306b6d4%22%7D%2C%7B%22packages%22%3A%5B%7B%22name%22%3A%22%40sinclair%2Ftypebox%22%7D%5D%2C%22color%22%3A%22%23d946ef%22%7D%5D&range=365-days&transform=none&binType=weekly&showDataMode=all&height=400"
@@ -939,24 +1032,24 @@ function PresentationIntroSlide() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   1
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-blue-800 dark:text-blue-300">Why Runtime Validation Matters</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                  <div className="text-base text-blue-700 dark:text-blue-200">
                     The gap between TypeScript types and runtime safety
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   2
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-blue-800 dark:text-blue-300">Validation library showdown</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                  <div className="text-base text-blue-700 dark:text-blue-200">
                     Live benchmarks comparing popular validation libraries
                   </div>
                 </div>
@@ -965,24 +1058,24 @@ function PresentationIntroSlide() {
 
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   3
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-blue-800 dark:text-blue-300">Security Implications</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                  <div className="text-base text-blue-700 dark:text-blue-200">
                     Property pollution and data sanitization
                   </div>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
                   4
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-blue-800 dark:text-blue-300">Choosing the Right Tool</div>
-                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                  <div className="text-base text-blue-700 dark:text-blue-200">
                     Performance vs features vs developer experience
                   </div>
                 </div>
@@ -1163,6 +1256,10 @@ function PresentationComponent() {
           isPlaceholderData={isPlaceholderData}
         />
       ),
+    },
+    {
+      title: "ArkType: Environment Validation Example",
+      content: <ArkTypeEnvSlide />,
     },
     {
       title: "Key Performance Insights",
