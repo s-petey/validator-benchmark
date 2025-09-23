@@ -311,18 +311,6 @@ console.log(user);
           </div>
         </div>
       </div>
-
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-lg">
-        <div className="text-center">
-          <h3 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-3">
-            💡 Pro Tip: Most validators strip excess properties by default
-          </h3>
-          <p className="text-blue-700 dark:text-blue-200">
-            This behavior helps prevent data leaks and maintains clean interfaces between your application layers.
-            Always validate external data at your boundaries!
-          </p>
-        </div>
-      </div>
     </div>
   );
 }
@@ -708,6 +696,133 @@ function ChoosingValidatorSlide() {
   );
 }
 
+function PresentationIntroSlide() {
+  return (
+    <div className="text-center space-y-8">
+      <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-8">
+        Type safety vs Runtime safety and why it matters
+      </h2>
+
+      <div className="space-y-6">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 rounded-lg">
+          <h3 className="text-2xl font-semibold text-blue-800 dark:text-blue-300 mb-6">What We'll Cover Today</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  1
+                </div>
+                <div className="text-left">
+                  <div className="font-medium text-blue-800 dark:text-blue-300">Why Runtime Validation Matters</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                    The gap between TypeScript types and runtime safety
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  2
+                </div>
+                <div className="text-left">
+                  <div className="font-medium text-blue-800 dark:text-blue-300">Validation library showdown</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                    Live benchmarks comparing popular validation libraries
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  3
+                </div>
+                <div className="text-left">
+                  <div className="font-medium text-blue-800 dark:text-blue-300">Security Implications</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                    Property pollution and data sanitization
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                  4
+                </div>
+                <div className="text-left">
+                  <div className="font-medium text-blue-800 dark:text-blue-300">Choosing the Right Tool</div>
+                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                    Performance vs features vs developer experience
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
+          <h3 className="text-xl font-semibold text-green-800 dark:text-green-300 mb-4">🎯 Goals</h3>
+          <p className="text-lg text-green-700 dark:text-green-200">
+            Raise awareness of different validation librarys and show when and why to use runtime validation. Also how
+            different libraries perform, and which one fits your specific use case.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpeakerIntroSlide() {
+  return (
+    <div className="text-center space-y-8">
+      <h2 className="text-3xl font-semibold mb-8">Who am I?</h2>
+
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+        <div className="lg:w-1/3">
+          <div className="w-48 h-48 rounded-full mx-auto overflow-hidden">
+            <img
+              src="https://avatars.githubusercontent.com/u/34942041?v=4"
+              alt="Sam Peterson"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="lg:w-2/3 space-y-6 text-left">
+          <div>
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Sam Peterson</h3>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Senior Full Stack Developer</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+              <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">💼 Background</h4>
+              <p className="text-blue-700 dark:text-blue-200">Full stack development since I started in 2018.</p>
+            </div>
+
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+              <h4 className="font-semibold text-green-800 dark:text-green-300 mb-2">🚀 Interests</h4>
+              <p className="text-green-700 dark:text-green-200">
+                All things web, TypeScript, hacking at side projects, wood working, video games, and enjoying life with
+                my wife and dog.
+              </p>
+            </div>
+
+            <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+              <h4 className="font-semibold text-purple-800 dark:text-purple-300 mb-2">🔗 Connect</h4>
+              <div className="flex gap-4 justify-between text-purple-700 dark:text-purple-200">
+                <span>GitHub: @s-petey</span>
+                <span>Bluesky: @sam-peterson</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ThankYouSlide() {
   return (
     <div className="text-center space-y-8">
@@ -730,6 +845,8 @@ function ThankYouSlide() {
             </svg>
             View on GitHub
           </a>
+
+          <p className="font-bold">https://github.com/s-petey/validator-benchmark</p>
         </div>
 
         <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg">
@@ -766,7 +883,15 @@ function PresentationComponent() {
 
   const slides = [
     {
-      title: "JavaScript Validator Performance Comparison",
+      title: "Welcome",
+      content: <PresentationIntroSlide />,
+    },
+    {
+      title: "About the Speaker",
+      content: <SpeakerIntroSlide />,
+    },
+    {
+      title: "The Traditional Approach",
       content: <IntroSlide />,
     },
     {
