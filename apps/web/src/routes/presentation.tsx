@@ -1,5 +1,5 @@
+import type { TableResultSchema } from "@locals/bench/bench.schemas";
 import { validators } from "@locals/bench/benchmarks";
-import type { TableResultSchema } from "@locals/bench-worker/bench.schemas";
 import ComWorker from "@locals/bench-worker/comlinkWorker?worker";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -279,8 +279,8 @@ function PropPollutionSlide() {
 
 const user = apiResponse as User;
 // All extra properties are still there!
-console.log(user); 
-// Shows: { id: 123, name: "John", email: "john@...", 
+console.log(user);
+// Shows: { id: 123, name: "John", email: "john@...",
 //          password_hash: "$2b$10$...", ... }`}</code>
               </pre>
             </div>
@@ -304,7 +304,7 @@ const UserSchema = z.object({
 
 const user = UserSchema.parse(apiResponse);
 console.log(user);
-// Shows only: { id: 123, name: "John Doe", 
+// Shows only: { id: 123, name: "John Doe",
 //               email: "john@example.com" }
 
 // Sensitive data automatically stripped!`}</code>
@@ -407,7 +407,7 @@ export const UserSchema = z.object({
 export async function getUser(id: number) {
   const response = await fetch(\`/api/users/\${id}\`);
   const data = await response.json();
-  
+
   // Automatic runtime validation!
   return UserSchema.parse(data);
 }`}</code>
@@ -471,7 +471,7 @@ const arktypeResult = arktypeSchema(data);
               <pre className="text-base overflow-x-auto">
                 <code>{`// Unified validation interface
 function validate<T extends StandardSchemaV1>(
-  schema: T, 
+  schema: T,
   data: unknown
 ) {
   const result = schema['~standard'].validate(data);
@@ -616,9 +616,14 @@ function ThroughputSlide({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-base font-medium mb-1">Time (ms)</label>
+            <label htmlFor="time" className="block text-base font-medium mb-1">
+              Time (ms)
+            </label>
+
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
               type="number"
+              id="time"
               min="1"
               value={time}
               onChange={(e) => setTime(Number(e.target.value))}
@@ -627,8 +632,12 @@ function ThroughputSlide({
             />
           </div>
           <div>
-            <label className="block text-base font-medium mb-1">Iterations</label>
+            <label htmlFor="iterations" className="block text-base font-medium mb-1">
+              Iterations
+            </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
+              id="iterations"
               type="number"
               min="1"
               value={iterations}
@@ -638,11 +647,16 @@ function ThroughputSlide({
             />
           </div>
           <div>
-            <label className="block text-base font-medium mb-1">Run Benchmark</label>
+            <label htmlFor="runBench" className="block text-base font-medium mb-1">
+              Run Benchmark
+            </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <button
+              id="runBench"
               onClick={onStartBenchmark}
               disabled={isPlaceholderData || status === "pending"}
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md disabled:opacity-50 hover:bg-blue-700"
+              type="button"
             >
               {isPlaceholderData || status === "pending" ? "Running..." : "Start Benchmark"}
             </button>
@@ -650,7 +664,7 @@ function ThroughputSlide({
         </div>
 
         <div className="mt-4">
-          <label className="block text-base font-medium mb-2">Selected Validators ({selectedValidators.length})</label>
+          <span className="block text-base font-medium mb-2">Selected Validators ({selectedValidators.length})</span>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {validators.map((v) => (
               <label key={v.name} className="flex items-center space-x-2">
@@ -1163,7 +1177,8 @@ function ThankYouSlide() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <svg arial-label="View on Github" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <title>View on Github</title>
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
             </svg>
             View on GitHub
@@ -1342,9 +1357,9 @@ function PresentationComponent() {
           )}
 
           <div className="flex space-x-2">
-            {slides.map((_, index) => (
+            {slides.map((slide, index) => (
               <Link
-                key={index}
+                key={slide.title}
                 to="/presentation"
                 search={{ slide: index }}
                 className={`w-3 h-3 rounded-full transition-colors ${

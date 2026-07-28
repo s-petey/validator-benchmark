@@ -1,5 +1,5 @@
+import { TableResultSchema } from "@locals/bench/bench.schemas";
 import { validators } from "@locals/bench/benchmarks";
-import { TableResultSchema } from "@locals/bench-worker/bench.schemas";
 import ComWorker from "@locals/bench-worker/comlinkWorker?worker";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -100,6 +100,9 @@ function HomeComponent() {
           <Link to="/presentation" search={{ slide: 0 }} className="text-blue-500 hover:text-blue-700">
             📊 Performance Presentation
           </Link>
+          <Link to="/history" className="text-blue-500 hover:text-blue-700">
+            View historical performance
+          </Link>
         </div>
       </header>
 
@@ -196,6 +199,7 @@ function HomeComponent() {
             <label htmlFor="iterations" className="font-medium">
               Iterations:
             </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
               disabled={isPlaceholderData || status === "pending"}
               type="number"
@@ -213,6 +217,7 @@ function HomeComponent() {
             <label htmlFor="time" className="font-medium">
               Time (ms):
             </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
               disabled={isPlaceholderData || status === "pending"}
               type="number"
