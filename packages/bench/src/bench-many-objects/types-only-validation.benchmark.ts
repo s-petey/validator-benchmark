@@ -20,37 +20,59 @@ import { users } from "./users.js";
 cronometro(
   {
     arri: () => {
-      users.forEach((user) => a.validate(arri.baseSchema, user));
+      users.forEach((user) => {
+        a.validate(arri.baseSchema, user);
+      });
     },
     ajv: () => {
-      users.forEach((user) => ajv.baseSchema(user));
+      users.forEach((user) => {
+        ajv.baseSchema(user);
+      });
     },
     joi: () => {
-      users.forEach((user) => joi.baseSchema.validate(user));
+      users.forEach((user) => {
+        joi.baseSchema.validate(user);
+      });
     },
     myzod: () => {
-      users.forEach((user) => myzod.baseSchema.try(user));
+      users.forEach((user) => {
+        myzod.baseSchema.try(user);
+      });
     },
     yup: () => {
-      users.forEach((user) => yup.baseSchema.isValidSync(user, { strict: true }));
+      users.forEach((user) => {
+        yup.baseSchema.isValidSync(user, { strict: true });
+      });
     },
     zod: () => {
-      users.forEach((user) => zod.baseSchema.safeParse(user));
+      users.forEach((user) => {
+        zod.baseSchema.safeParse(user);
+      });
     },
     zod4: () => {
-      users.forEach((user) => zod4.baseSchema.safeParse(user));
+      users.forEach((user) => {
+        zod4.baseSchema.safeParse(user);
+      });
     },
     arktype: () => {
-      users.forEach((user) => arktype.baseSchema(user));
+      users.forEach((user) => {
+        arktype.baseSchema(user);
+      });
     },
     effect: () => {
-      users.forEach((user) => Schema.decodeEither(effect.baseSchema)(user));
+      users.forEach((user) => {
+        Schema.decodeEither(effect.baseSchema)(user);
+      });
     },
     valibot: () => {
-      users.forEach((user) => safeParse(valibot.baseSchema, user));
+      users.forEach((user) => {
+        safeParse(valibot.baseSchema, user);
+      });
     },
     typebox: () => {
-      users.forEach((user) => Value.Parse(typebox.baseSchema, user));
+      users.forEach((user) => {
+        Value.Parse(typebox.baseSchema, user);
+      });
     },
   },
   {

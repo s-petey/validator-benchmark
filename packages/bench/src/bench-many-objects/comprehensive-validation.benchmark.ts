@@ -20,37 +20,59 @@ import { users } from "./users.js";
 cronometro(
   {
     arri: () => {
-      users.forEach((user) => a.parse(arri.detailsSchema, user));
+      users.forEach((user) => {
+        a.parse(arri.detailsSchema, user);
+      });
     },
     ajv: () => {
-      users.forEach((user) => ajv.detailsSchema(user));
+      users.forEach((user) => {
+        ajv.detailsSchema(user);
+      });
     },
     joi: () => {
-      users.forEach((user) => joi.detailsSchema.validate(user));
+      users.forEach((user) => {
+        joi.detailsSchema.validate(user);
+      });
     },
     myzod: () => {
-      users.forEach((user) => myzod.detailsSchema.try(user));
+      users.forEach((user) => {
+        myzod.detailsSchema.try(user);
+      });
     },
     yup: () => {
-      users.forEach((user) => yup.detailsSchema.isValidSync(user, { strict: true }));
+      users.forEach((user) => {
+        yup.detailsSchema.isValidSync(user, { strict: true });
+      });
     },
     zod: () => {
-      users.forEach((user) => zod.detailsSchema.safeParse(user));
+      users.forEach((user) => {
+        zod.detailsSchema.safeParse(user);
+      });
     },
     zod4: () => {
-      users.forEach((user) => zod4.detailsSchema.safeParse(user));
+      users.forEach((user) => {
+        zod4.detailsSchema.safeParse(user);
+      });
     },
     arktype: () => {
-      users.forEach((user) => arktype.detailsSchema(user));
+      users.forEach((user) => {
+        arktype.detailsSchema(user);
+      });
     },
     effect: () => {
-      users.forEach((user) => Schema.decodeSync(effect.detailsSchema)(user));
+      users.forEach((user) => {
+        Schema.decodeSync(effect.detailsSchema)(user);
+      });
     },
     valibot: () => {
-      users.forEach((user) => parse(valibot.detailsSchema, user));
+      users.forEach((user) => {
+        parse(valibot.detailsSchema, user);
+      });
     },
     typebox: () => {
-      users.forEach((user) => Value.Parse(typebox.detailsSchema, user));
+      users.forEach((user) => {
+        Value.Parse(typebox.detailsSchema, user);
+      });
     },
   },
   {

@@ -22,6 +22,7 @@ import { detailsSchema as zod4DetailsSchema } from "../schemas/zod4.js";
 type ValidatorResource = {
   href: string;
   name: string;
+  npmPackageName: string;
   singleAction: () => void;
   multipleActions: () => void;
 };
@@ -30,16 +31,20 @@ export const validators = [
   {
     href: "https://www.npmjs.com/package/ajv",
     name: "ajv",
+    npmPackageName: "ajv",
     singleAction() {
       ajvDetailsSchema(user);
     },
     multipleActions() {
-      users.forEach((user) => ajvDetailsSchema(user));
+      users.forEach((user) => {
+        ajvDetailsSchema(user);
+      });
     },
   },
   {
     href: "https://arktype.io/",
     name: "ArkType",
+    npmPackageName: "arktype",
     singleAction() {
       const result = arktypeDetailsSchema(user);
       if (result instanceof type.errors) {
@@ -58,21 +63,27 @@ export const validators = [
   {
     href: "https://www.npmjs.com/package/@arrirpc/schema",
     name: "arri",
+    npmPackageName: "@arrirpc/schema",
     singleAction() {
       a.parse(arriDetailsSchema, user);
     },
     multipleActions() {
-      users.forEach((user) => a.parse(arriDetailsSchema, user));
+      users.forEach((user) => {
+        a.parse(arriDetailsSchema, user);
+      });
     },
   },
   {
     href: "https://effect.website/docs/schema/introduction/",
     name: "effect",
+    npmPackageName: "effect",
     singleAction() {
       Schema.decodeSync(effectDetailsSchema)(user);
     },
     multipleActions() {
-      users.forEach((user) => Schema.decodeSync(effectDetailsSchema)(user));
+      users.forEach((user) => {
+        Schema.decodeSync(effectDetailsSchema)(user);
+      });
     },
   },
   {
@@ -80,6 +91,7 @@ export const validators = [
     // in favor of Effect -- https://x.com/MichaelArnaldi/status/1672228793631506432
     href: "https://github.com/gcanti/io-ts",
     name: "io-ts",
+    npmPackageName: "io-ts",
     singleAction() {
       const result = ioTsDetailsSchema.decode(user);
       // @ts-expect-error -- Left type is unknown -- Ignoring...
@@ -101,6 +113,7 @@ export const validators = [
   // {
   //   href: 'https://www.npmjs.com/package/joi',
   //   name: 'joi',
+  //   npmPackageName: "joi",
   //   singleAction() {
   //     joiDetailsSchema.validate(user);
   //   },
@@ -111,16 +124,20 @@ export const validators = [
   {
     href: "https://www.npmjs.com/package/myzod",
     name: "myzod",
+    npmPackageName: "myzod",
     singleAction() {
       myzodDetailsSchema.try(user);
     },
     multipleActions() {
-      users.forEach((user) => myzodDetailsSchema.try(user));
+      users.forEach((user) => {
+        myzodDetailsSchema.try(user);
+      });
     },
   },
   {
     href: "https://github.com/sinclairzx81/typebox",
     name: "typebox",
+    npmPackageName: "@sinclair/typebox",
     singleAction() {
       Value.Parse(typeboxDetailsSchema, user);
     },
@@ -133,41 +150,53 @@ export const validators = [
   {
     href: "https://valibot.dev/",
     name: "valibot",
+    npmPackageName: "valibot",
     singleAction() {
       parse(valibotDetailsSchema, user);
     },
     multipleActions() {
-      users.forEach((user) => parse(valibotDetailsSchema, user));
+      users.forEach((user) => {
+        parse(valibotDetailsSchema, user);
+      });
     },
   },
   {
     href: "https://www.npmjs.com/package/yup",
     name: "yup",
+    npmPackageName: "yup",
     singleAction() {
       yupDetailsSchema.isValidSync(user, { strict: true });
     },
     multipleActions() {
-      users.forEach((user) => yupDetailsSchema.isValidSync(user, { strict: true }));
+      users.forEach((user) => {
+        yupDetailsSchema.isValidSync(user, { strict: true });
+      });
     },
   },
   {
     href: "https://v3.zod.dev/",
     name: "zod",
+    npmPackageName: "zod",
     singleAction() {
       zodDetailsSchema.parse(user);
     },
     multipleActions() {
-      users.forEach((user) => zodDetailsSchema.parse(user));
+      users.forEach((user) => {
+        zodDetailsSchema.parse(user);
+      });
     },
   },
   {
     href: "https://zod.dev/v4",
     name: "zodV4",
+    npmPackageName: "zod",
     singleAction() {
       zod4DetailsSchema.parse(user);
     },
     multipleActions() {
-      users.forEach((user) => zod4DetailsSchema.parse(user));
+      users.forEach((user) => {
+        zod4DetailsSchema.parse(user);
+      });
     },
   },
 ] as const satisfies Readonly<ValidatorResource[]>;
