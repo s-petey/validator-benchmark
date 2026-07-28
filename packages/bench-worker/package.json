@@ -2,7 +2,6 @@
   "name": "@locals/bench-worker",
   "type": "module",
   "exports": {
-    "./bench.schemas": "./src/bench.schemas.ts",
     "./comlinkWorker": "./src/comlinkWorker.ts"
   },
   "dependencies": {
