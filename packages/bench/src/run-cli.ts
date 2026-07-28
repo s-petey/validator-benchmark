@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { runBench } from "./runBench.js";
-import type { HistoryData } from "./schemas/bench.schemas.js";
+import type { HistoryData, TableResult } from "./schemas/bench.schemas.js";
 import { validators } from "./schemas/benchmarks.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,11 +21,16 @@ async function getPackageVersion(packageName: string): Promise<string | null> {
 
 async function main() {
   const args = process.argv.slice(2);
+  const hasOverride = args.includes("--override") || args.includes("--force") || args.includes("-f");
+
+  // Filter out the flags so they aren't treated as package names
+  const cleanArgs = args.filter((arg) => arg !== "--override" && arg !== "--force" && arg !== "-f");
+
   let packageNames: string[] = [];
 
-  const packagesIndex = args.indexOf("--packages");
+  const packagesIndex = cleanArgs.indexOf("--packages");
   if (packagesIndex !== -1) {
-    packageNames = args.slice(packagesIndex + 1);
+    packageNames = cleanArgs.slice(packagesIndex + 1);
   }
 
   if (packageNames.length === 0) {
@@ -33,8 +38,12 @@ async function main() {
     packageNames = Array.from(new Set(validators.map((v) => v.npmPackageName)));
   }
 
+  const historyDir = path.resolve(__dirname, "../../../../apps/web/src/data/history");
+  const todayStr = new Date().toISOString().split("T")[0];
+
   const tasksToRun: string[] = [];
   const packageVersions: Record<string, { pkgName: string; version: string }> = {};
+  const historyCache: Record<string, HistoryData> = {};
 
   for (const pkgName of packageNames) {
     const matchingValidators = validators.filter((v) => v.npmPackageName === pkgName);
@@ -49,7 +58,34 @@ async function main() {
       continue;
     }
 
+    const safeFilename = pkgName.replace(/[^a-zA-Z0-9-]/g, "_") + ".json";
+    const packageHistoryPath = path.join(historyDir, safeFilename);
+    let singleHistoryData: HistoryData = {};
+
+    try {
+      const historyContent = await fs.readFile(packageHistoryPath, "utf-8");
+      singleHistoryData = JSON.parse(historyContent) as HistoryData;
+    } catch (_err) {
+      // It's fine if the file does not exist yet
+    }
+
+    historyCache[pkgName] = singleHistoryData;
+
     for (const validatorInfo of matchingValidators) {
+      if (!hasOverride) {
+        // Check if there is already a record for this validator today
+        const hasTodayRecord = singleHistoryData[pkgName]?.[version]?.some(
+          (record) => record.metrics["Task name"] === validatorInfo.name && record.date.split("T")[0] === todayStr,
+        );
+
+        if (hasTodayRecord) {
+          console.log(
+            `Skipping parser ${validatorInfo.name} (${version}) - already run today. Use --override or --force to run anyway.`,
+          );
+          continue;
+        }
+      }
+
       tasksToRun.push(validatorInfo.name);
       packageVersions[validatorInfo.name] = { pkgName, version };
     }
@@ -68,17 +104,10 @@ async function main() {
 
   const results = await runBench(time, iterations, (v) => console.log(`Progress: ${v}`), tasksToRun);
 
-  const historyPath = path.resolve(__dirname, "../../../../apps/web/src/data/history.json");
-  let historyData: HistoryData = {};
-
-  try {
-    const historyContent = await fs.readFile(historyPath, "utf-8");
-    historyData = JSON.parse(historyContent);
-  } catch (_err) {
-    console.log("Creating new history.json file");
-  }
-
   const timestamp = new Date().toISOString();
+
+  // Group results by package so we write to individual history files
+  const resultsByPackage: Record<string, { version: string; result: TableResult }[]> = {};
 
   for (const result of results) {
     const taskName = result["Task name"];
@@ -87,24 +116,45 @@ async function main() {
 
     const { pkgName, version } = versionInfo;
 
-    if (!historyData[pkgName]) {
-      historyData[pkgName] = {};
+    let packageGroup = resultsByPackage[pkgName];
+    if (!packageGroup) {
+      packageGroup = [];
+      resultsByPackage[pkgName] = packageGroup;
     }
-
-    if (!historyData[pkgName][version]) {
-      historyData[pkgName][version] = [];
-    }
-
-    historyData[pkgName][version].push({
-      date: timestamp,
-      metrics: result,
-    });
+    packageGroup.push({ version, result });
   }
 
-  await fs.mkdir(path.dirname(historyPath), { recursive: true });
-  await fs.writeFile(historyPath, JSON.stringify(historyData, null, 2));
+  await fs.mkdir(historyDir, { recursive: true });
 
-  console.log("Benchmark results saved to history.json");
+  for (const [pkgName, items] of Object.entries(resultsByPackage)) {
+    const singleHistoryData = historyCache[pkgName] ?? {};
+
+    let pkgData = singleHistoryData[pkgName];
+    if (!pkgData) {
+      pkgData = {};
+      singleHistoryData[pkgName] = pkgData;
+    }
+
+    for (const { version, result } of items) {
+      let versionRuns = pkgData[version];
+      if (!versionRuns) {
+        versionRuns = [];
+        pkgData[version] = versionRuns;
+      }
+
+      versionRuns.push({
+        date: timestamp,
+        metrics: result,
+      });
+    }
+
+    const safeFilename = pkgName.replace(/[^a-zA-Z0-9-]/g, "_") + ".json";
+    const packageHistoryPath = path.join(historyDir, safeFilename);
+
+    await fs.writeFile(packageHistoryPath, JSON.stringify(singleHistoryData, null, 2));
+  }
+
+  console.log("Benchmark results saved to separate history files.");
 }
 
 main().catch((err) => {

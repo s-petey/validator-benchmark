@@ -56,4 +56,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: update benchmark history for new versions"
-          file_pattern: "apps/web/src/data/history.json"
+          file_pattern: "apps/web/src/data/history/*.json"

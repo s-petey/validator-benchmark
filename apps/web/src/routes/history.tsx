@@ -1,14 +1,20 @@
-import { HistoryDataSchema } from "@locals/bench/bench.schemas";
+import { type HistoryData, HistoryDataSchema } from "@locals/bench/bench.schemas";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import rawHistoryData from "../data/history.json";
 
 export const Route = createFileRoute("/history")({
   component: HistoryComponent,
 });
 
 function HistoryComponent() {
-  const data = useMemo(() => HistoryDataSchema.parse(rawHistoryData), []);
+  const data = useMemo(() => {
+    const rawHistoryModules = import.meta.glob<{ default: HistoryData }>("../data/history/*.json", { eager: true });
+    const rawHistoryData: HistoryData = Object.assign(
+      {},
+      ...Object.values(rawHistoryModules).map((module) => module.default),
+    );
+    return HistoryDataSchema.parse(rawHistoryData);
+  }, []);
 
   return (
     <div className="flex flex-col justify-center">
@@ -46,12 +52,13 @@ function HistoryComponent() {
                 </thead>
                 <tbody>
                   {Object.entries(versions)
-                    .flatMap(([version, runs]) =>
-                      runs.map((run) => ({ version, ...run }))
-                    )
+                    .flatMap(([version, runs]) => runs.map((run) => ({ version, ...run })))
                     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                     .map((run, idx) => (
-                      <tr key={`${run.version}-${idx}`} className="border-b border-gray-700 hover:bg-gray-700 transition">
+                      <tr
+                        key={`${run.version}-${idx}`}
+                        className="border-b border-gray-700 hover:bg-gray-700 transition"
+                      >
                         <td className="px-6 py-4 font-bold">{run.version}</td>
                         <td className="px-6 py-4">{new Date(run.date).toLocaleString()}</td>
                         <td className="px-6 py-4">{run.metrics["Latency avg (ns)"]}</td>

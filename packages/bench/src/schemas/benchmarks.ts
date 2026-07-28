@@ -176,7 +176,7 @@ export const validators = [
   {
     href: "https://v3.zod.dev/",
     name: "zod",
-    npmPackageName: "zod",
+    npmPackageName: "zod3",
     singleAction() {
       zodDetailsSchema.parse(user);
     },

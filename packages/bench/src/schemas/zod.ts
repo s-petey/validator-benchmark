@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod3";
 
 export const baseSchema = z.object({
   name: z.object({
