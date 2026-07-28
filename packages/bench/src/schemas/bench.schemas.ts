@@ -38,5 +38,5 @@ export const HistoryRecordSchema = z.object({
 });
 export type HistoryRecord = z.infer<typeof HistoryRecordSchema>;
 
-export const HistoryDataSchema = z.record(z.string(), z.record(z.string(), HistoryRecordSchema));
+export const HistoryDataSchema = z.record(z.string(), z.record(z.string(), z.array(HistoryRecordSchema)));
 export type HistoryData = z.infer<typeof HistoryDataSchema>;

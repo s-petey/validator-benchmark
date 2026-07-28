@@ -91,11 +91,14 @@ async function main() {
       historyData[pkgName] = {};
     }
 
-    // Check if we already have this metric
-    historyData[pkgName][version] = {
+    if (!historyData[pkgName][version]) {
+      historyData[pkgName][version] = [];
+    }
+
+    historyData[pkgName][version].push({
       date: timestamp,
       metrics: result,
-    };
+    });
   }
 
   await fs.mkdir(path.dirname(historyPath), { recursive: true });

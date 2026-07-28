@@ -46,13 +46,16 @@ function HistoryComponent() {
                 </thead>
                 <tbody>
                   {Object.entries(versions)
-                    .sort((a, b) => new Date(b[1].date).getTime() - new Date(a[1].date).getTime())
-                    .map(([version, dataRecord]) => (
-                      <tr key={version} className="border-b border-gray-700 hover:bg-gray-700 transition">
-                        <td className="px-6 py-4 font-bold">{version}</td>
-                        <td className="px-6 py-4">{new Date(dataRecord.date).toLocaleDateString()}</td>
-                        <td className="px-6 py-4">{dataRecord.metrics["Latency avg (ns)"]}</td>
-                        <td className="px-6 py-4">{dataRecord.metrics["Throughput avg (ops/s)"]}</td>
+                    .flatMap(([version, runs]) =>
+                      runs.map((run) => ({ version, ...run }))
+                    )
+                    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                    .map((run, idx) => (
+                      <tr key={`${run.version}-${idx}`} className="border-b border-gray-700 hover:bg-gray-700 transition">
+                        <td className="px-6 py-4 font-bold">{run.version}</td>
+                        <td className="px-6 py-4">{new Date(run.date).toLocaleString()}</td>
+                        <td className="px-6 py-4">{run.metrics["Latency avg (ns)"]}</td>
+                        <td className="px-6 py-4">{run.metrics["Throughput avg (ops/s)"]}</td>
                       </tr>
                     ))}
                 </tbody>

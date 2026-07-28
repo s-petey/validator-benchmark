@@ -49,8 +49,8 @@ jobs:
 
           echo "Running CLI with: $PACKAGES_ARGS"
 
-          # Turbo will automatically build the project first due to our updated turbo.json
-          pnpm run bench:history --packages $PACKAGES_ARGS
+          # Run the benchmark history command, passing down the package names
+          pnpm run bench:history -- --packages $PACKAGES_ARGS
 
       - name: Commit updated history
         uses: stefanzweifel/git-auto-commit-action@v5
