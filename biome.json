@@ -4,6 +4,7 @@
   "files": {
     "ignoreUnknown": true,
     "includes": [
+      "**",
       "!{apps,packages}/**/node_modules/**/*",
       "!{apps,packages}/**/dist/**/*",
       "!{apps,packages}/**/.turbo/**/*"
