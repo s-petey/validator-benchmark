@@ -8,10 +8,12 @@
     "bench:single": "node dist/bench-single-object/comprehensive-validation.benchmark.js",
     "bench:single:types": "node dist/bench-single-object/types-only-validation.benchmark.js",
     "bench:many": "node dist/bench-many-objects/comprehensive-validation.benchmark.js",
-    "bench:many:types": "node dist/bench-many-objects/types-only-validation.benchmark.js"
+    "bench:many:types": "node dist/bench-many-objects/types-only-validation.benchmark.js",
+    "bench:history": "node dist/src/run-cli.js"
   },
   "exports": {
-    "./*": "./src/schemas/*.ts"
+    "./*": "./src/schemas/*.ts",
+    "./runBench": "./src/runBench.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "10.0.0",
@@ -32,6 +34,7 @@
     "io-ts": "^2.2.22",
     "joi": "18.0.1",
     "myzod": "1.12.1",
+    "tinybench": "^5.0.1",
     "valibot": "1.1.0",
     "validator": "13.15.15",
     "yup": "1.7.1",
