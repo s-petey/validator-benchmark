@@ -1,9 +1,9 @@
 import { type Validator, validators } from "@locals/bench/benchmarks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ValidatorSnippet } from "../../libs/ValidatorSnippet";
+import { ValidatorSnippet } from "../../../libs/ValidatorSnippet";
 
-export const Route = createFileRoute("/compare")({
+export const Route = createFileRoute("/_app/compare")({
   component: RouteComponent,
 });
 

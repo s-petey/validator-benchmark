@@ -1,18 +1,12 @@
-import { HistoryDataSchema, type HistoryData, type TableResult } from "@locals/bench/bench.schemas";
+import { type HistoryData, HistoryDataSchema, type TableResult } from "@locals/bench/bench.schemas";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_app/history")({
   component: HistoryComponent,
 });
 
-type SortOption =
-  | "date-desc"
-  | "date-asc"
-  | "version-desc"
-  | "version-asc"
-  | "latency-asc"
-  | "throughput-desc";
+type SortOption = "date-desc" | "date-asc" | "version-desc" | "version-asc" | "latency-asc" | "throughput-desc";
 
 interface RenderRun {
   version: string;
@@ -35,10 +29,10 @@ function HistoryComponent() {
   const [selectedPackages, setSelectedPackages] = useState<string[]>([]);
 
   const data = useMemo(() => {
-    const rawHistoryModules = import.meta.glob<{ default: HistoryData }>("../data/history/*.json", { eager: true });
+    const rawHistoryModules = import.meta.glob<{ default: HistoryData }>("../../data/history/*.json", { eager: true });
     const rawHistoryData: HistoryData = Object.assign(
       {},
-      ...Object.values(rawHistoryModules).map((module) => module.default)
+      ...Object.values(rawHistoryModules).map((module) => module.default),
     );
     return HistoryDataSchema.parse(rawHistoryData);
   }, []);
@@ -48,11 +42,7 @@ function HistoryComponent() {
   }, [data]);
 
   const togglePackage = (pkg: string) => {
-    setSelectedPackages((prev) =>
-      prev.includes(pkg)
-        ? prev.filter((p) => p !== pkg)
-        : [...prev, pkg]
-    );
+    setSelectedPackages((prev) => (prev.includes(pkg) ? prev.filter((p) => p !== pkg) : [...prev, pkg]));
   };
 
   const sortedAndFilteredPackages = useMemo<RenderPackage[]>(() => {
@@ -69,7 +59,7 @@ function HistoryComponent() {
         versionRuns.map((run) => ({
           version,
           ...run,
-        }))
+        })),
       );
 
       // 3. Sort runs internally inside this card
@@ -147,15 +137,9 @@ function HistoryComponent() {
       <header className="flex flex-col p-6 border-b border-gray-800 bg-gray-950">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight">Historical Performance</h1>
+            <h2 className="text-3xl font-extrabold tracking-tight">Historical Performance</h2>
             <p className="mt-2 text-gray-400">Track benchmark performance across library versions.</p>
           </div>
-          <Link
-            to="/"
-            className="px-4 py-2 text-sm font-semibold rounded bg-gray-800 border border-gray-700 hover:bg-gray-700 transition"
-          >
-            Go home
-          </Link>
         </div>
       </header>
 
@@ -171,6 +155,7 @@ function HistoryComponent() {
                 </span>
                 <div className="flex gap-2">
                   <button
+                    type="button"
                     onClick={() => setSelectedPackages([])}
                     className="text-xs text-blue-400 hover:text-blue-300 font-semibold transition"
                   >
@@ -178,6 +163,7 @@ function HistoryComponent() {
                   </button>
                   <span className="text-gray-700 text-xs">|</span>
                   <button
+                    type="button"
                     onClick={() => setSelectedPackages(allPackages)}
                     className="text-xs text-blue-400 hover:text-blue-300 font-semibold transition"
                   >
@@ -191,6 +177,7 @@ function HistoryComponent() {
                   return (
                     <button
                       key={pkg}
+                      type="button"
                       onClick={() => togglePackage(pkg)}
                       className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150 ${
                         isSelected
@@ -210,6 +197,7 @@ function HistoryComponent() {
           <label htmlFor="sort" className="text-xs font-bold uppercase tracking-wider text-gray-400">
             Sort Runs &amp; Cards By
           </label>
+          {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
           <select
             id="sort"
             value={sortBy}
@@ -256,11 +244,16 @@ function HistoryComponent() {
                     </thead>
                     <tbody>
                       {runs.map((run, idx) => (
-                        <tr key={`${run.version}-${idx}`} className="border-b border-gray-700 hover:bg-gray-700/50 transition-all duration-150">
+                        <tr
+                          key={`${run.version}-${idx}`}
+                          className="border-b border-gray-700 hover:bg-gray-700/50 transition-all duration-150"
+                        >
                           <td className="px-6 py-4 font-bold text-gray-100">{run.version}</td>
                           <td className="px-6 py-4 text-gray-300">{new Date(run.date).toLocaleString()}</td>
                           <td className="px-6 py-4 text-emerald-400 font-mono">{run.metrics["Latency med (ns)"]}</td>
-                          <td className="px-6 py-4 text-purple-400 font-mono">{run.metrics["Throughput med (ops/s)"]}</td>
+                          <td className="px-6 py-4 text-purple-400 font-mono">
+                            {run.metrics["Throughput med (ops/s)"]}
+                          </td>
                         </tr>
                       ))}
                     </tbody>

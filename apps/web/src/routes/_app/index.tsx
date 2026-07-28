@@ -20,7 +20,7 @@ type TableResult = z.infer<typeof TableResultSchema>;
 
 const columnHelper = createColumnHelper<TableResult>();
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_app/")({
   component: HomeComponent,
 });
 
@@ -91,21 +91,6 @@ function HomeComponent() {
 
   return (
     <main className="flex flex-col justify-center gap-4">
-      <header className="flex flex-col p-4">
-        <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
-        <div className="flex gap-4">
-          <Link to="/compare" className="text-blue-500 hover:text-blue-700">
-            Compare syntax
-          </Link>
-          <Link to="/presentation" search={{ slide: 0 }} className="text-blue-500 hover:text-blue-700">
-            📊 Performance Presentation
-          </Link>
-          <Link to="/history" className="text-blue-500 hover:text-blue-700">
-            View historical performance
-          </Link>
-        </div>
-      </header>
-
       <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
         <div className="w-full px-4">
           {/* List currently included validators */}
