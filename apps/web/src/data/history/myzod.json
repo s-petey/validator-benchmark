@@ -1,0 +1,17 @@
+{
+  "myzod": {
+    "1.12.1": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "myzod",
+          "Latency avg (ns)": "1234.9 ± 8.16%",
+          "Latency med (ns)": "1166.0 ± 41.00",
+          "Throughput avg (ops/s)": "861155 ± 0.02%",
+          "Throughput med (ops/s)": "857633 ± 30503",
+          "Samples": 404877
+        }
+      }
+    ]
+  }
+}

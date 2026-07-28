@@ -1,0 +1,17 @@
+{
+  "zod3": {
+    "3.25.76": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "zod",
+          "Latency avg (ns)": "1315.7 ± 0.43%",
+          "Latency med (ns)": "1250.0 ± 42.00",
+          "Throughput avg (ops/s)": "791486 ± 0.03%",
+          "Throughput med (ops/s)": "800000 ± 26006",
+          "Samples": 380033
+        }
+      }
+    ]
+  }
+}

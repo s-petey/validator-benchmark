@@ -1,0 +1,17 @@
+{
+  "@sinclair/typebox": {
+    "0.34.41": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "typebox",
+          "Latency avg (ns)": "2174.8 ± 0.43%",
+          "Latency med (ns)": "2083.0 ± 42.00",
+          "Throughput avg (ops/s)": "476742 ± 0.04%",
+          "Throughput med (ops/s)": "480077 ± 9639",
+          "Samples": 229906
+        }
+      }
+    ]
+  }
+}

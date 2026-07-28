@@ -1,0 +1,17 @@
+{
+  "ajv": {
+    "8.17.1": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "ajv",
+          "Latency avg (ns)": "460.00 ± 0.96%",
+          "Latency med (ns)": "417.00 ± 1.00",
+          "Throughput avg (ops/s)": "2391728 ± 0.02%",
+          "Throughput med (ops/s)": "2398082 ± 5765",
+          "Samples": 1086956
+        }
+      }
+    ]
+  }
+}

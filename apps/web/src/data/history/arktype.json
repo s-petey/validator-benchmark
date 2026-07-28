@@ -1,0 +1,17 @@
+{
+  "arktype": {
+    "2.1.22": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "ArkType",
+          "Latency avg (ns)": "211.29 ± 0.60%",
+          "Latency med (ns)": "208.00 ± 1.00",
+          "Throughput avg (ops/s)": "4967057 ± 0.02%",
+          "Throughput med (ops/s)": "4807692 ± 23003",
+          "Samples": 2366384
+        }
+      }
+    ]
+  }
+}

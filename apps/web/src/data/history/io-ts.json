@@ -1,0 +1,17 @@
+{
+  "io-ts": {
+    "2.2.22": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "io-ts",
+          "Latency avg (ns)": "153.52 ± 0.11%",
+          "Latency med (ns)": "166.00 ± 1.00",
+          "Throughput avg (ops/s)": "6780986 ± 0.02%",
+          "Throughput med (ops/s)": "6024096 ± 36072",
+          "Samples": 3256898
+        }
+      }
+    ]
+  }
+}
