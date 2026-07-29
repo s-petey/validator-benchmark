@@ -3,8 +3,10 @@ import { Schema, SchemaGetter } from "effect4";
 const emailRegex = /^([A-Z0-9_+-]+\.?)*[A-Z0-9_+-]@([A-Z0-9][A-Z0-9-]*\.)+[A-Z]{2,}$/i;
 
 export const emailSchema = Schema.String.pipe(
-  Schema.decode({ decode: SchemaGetter.trim(), encode: SchemaGetter.passthrough() }),
-  Schema.decode({ decode: SchemaGetter.toLowerCase(), encode: SchemaGetter.passthrough() }),
+  Schema.decodeTo(Schema.String, {
+    decode: SchemaGetter.transform((s) => s.trim().toLowerCase()),
+    encode: SchemaGetter.passthrough(),
+  }),
   Schema.check(Schema.isPattern(emailRegex, {
     message: "Email address is invalid",
   })),
@@ -26,12 +28,12 @@ export const baseSchema = Schema.Struct({
 
 export const detailsSchema = Schema.Struct({
   name: Schema.Struct({
-    first: Schema.String.pipe(Schema.check(Schema.isMinLength(1)), Schema.check(Schema.isMaxLength(999))),
-    last: Schema.String.pipe(Schema.check(Schema.isMinLength(1)), Schema.check(Schema.isMaxLength(999))),
+    first: Schema.String.pipe(Schema.check(Schema.isLengthBetween(1, 999))),
+    last: Schema.String.pipe(Schema.check(Schema.isLengthBetween(1, 999))),
   }),
   login: Schema.Struct({
     email: emailSchema,
-    password: Schema.String.pipe(Schema.check(Schema.isMinLength(12)), Schema.check(Schema.isMaxLength(50))),
+    password: Schema.String.pipe(Schema.check(Schema.isLengthBetween(12, 50))),
   }),
   organization_id: Schema.String.pipe(Schema.check(Schema.isUUID())),
   requested_at: Schema.DateFromString,
