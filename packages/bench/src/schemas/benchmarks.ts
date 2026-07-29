@@ -2,6 +2,7 @@ import { a } from "@arrirpc/schema";
 import { Value } from "@sinclair/typebox/value";
 import { type } from "arktype";
 import { Either, Schema } from "effect";
+import { Schema as SchemaV4 } from "effect4";
 import { parse } from "valibot";
 import { users } from "../bench-many-objects/users.js";
 import { user } from "../bench-single-object/user.js";
@@ -9,6 +10,7 @@ import { detailsSchema as ajvDetailsSchema } from "../schemas/ajv.js";
 import { detailsSchema as arktypeDetailsSchema } from "../schemas/arktype.js";
 import { detailsSchema as arriDetailsSchema } from "../schemas/arri.js";
 import { detailsSchema as effectDetailsSchema } from "../schemas/effectSchema.js";
+import { detailsSchema as effectV4DetailsSchema } from "../schemas/effectSchema4.js";
 import { detailsSchema as ioTsDetailsSchema } from "../schemas/ioTs.js";
 import { detailsSchema as myzodDetailsSchema } from "../schemas/myzod.js";
 import { detailsSchema as typeboxDetailsSchema } from "../schemas/typebox.js";
@@ -83,6 +85,19 @@ export const validators = [
     multipleActions() {
       users.forEach((user) => {
         Schema.decodeSync(effectDetailsSchema)(user);
+      });
+    },
+  },
+  {
+    href: "https://effect.website/docs/schema/introduction/",
+    name: "effectV4",
+    npmPackageName: "effect4",
+    singleAction() {
+      SchemaV4.decodeSync(effectV4DetailsSchema)(user);
+    },
+    multipleActions() {
+      users.forEach((user) => {
+        SchemaV4.decodeSync(effectV4DetailsSchema)(user);
       });
     },
   },
