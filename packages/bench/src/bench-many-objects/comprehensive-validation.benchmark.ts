@@ -2,12 +2,14 @@ import { a } from "@arrirpc/schema";
 import { Value } from "@sinclair/typebox/value";
 import cronometro from "cronometro";
 import { Schema } from "effect";
+import { Schema as SchemaV4 } from "effect4";
 import { parse } from "valibot";
 import { writeReport } from "../fileWriter.js";
 import * as ajv from "../schemas/ajv.js";
 import * as arktype from "../schemas/arktype.js";
 import * as arri from "../schemas/arri.js";
 import * as effect from "../schemas/effectSchema.js";
+import * as effectV4 from "../schemas/effectSchema4.js";
 import * as joi from "../schemas/joi.js";
 import * as myzod from "../schemas/myzod.js";
 import * as typebox from "../schemas/typebox.js";
@@ -62,6 +64,11 @@ cronometro(
     effect: () => {
       users.forEach((user) => {
         Schema.decodeSync(effect.detailsSchema)(user);
+      });
+    },
+    effectV4: () => {
+      users.forEach((user) => {
+        SchemaV4.decodeSync(effectV4.detailsSchema)(user);
       });
     },
     valibot: () => {
