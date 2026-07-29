@@ -1,0 +1,19 @@
+.styled-link {
+  color: var(--indigo-7);
+  text-decoration-color: var(--indigo-6);
+  text-decoration-thickness: 2px;
+
+  &:hover {
+    color: var(--indigo-9);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

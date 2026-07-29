@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@drop-in/graffiti": "^4.30.0",
     "@locals/bench": "workspace:*",
     "@locals/bench-worker": "workspace:*",
     "@tanstack/devtools-vite": "^0.3.3",
