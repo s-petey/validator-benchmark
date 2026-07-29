@@ -1591,7 +1591,7 @@ function PresentationComponent() {
 
         <div className="split center">
           {currentSlide === 0 ? (
-            <button className="minimal" disabled style={{ opacity: 0.5 }}>
+            <button type="button" className="minimal" disabled style={{ opacity: 0.5 }}>
               ← Previous
             </button>
           ) : (
@@ -1624,7 +1624,7 @@ function PresentationComponent() {
           </div>
 
           {currentSlide === slides.length - 1 ? (
-            <button className="minimal" disabled style={{ opacity: 0.5 }}>
+            <button type="button" className="minimal" disabled style={{ opacity: 0.5 }}>
               Next →
             </button>
           ) : (
