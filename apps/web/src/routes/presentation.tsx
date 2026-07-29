@@ -52,7 +52,6 @@ function useBenchmarkData(formState: { time: number; iterations: number; selecte
 function IntroSlide() {
   return (
     <div className="text-center stack">
-      <h2 className="no-margin">The Traditional Approach</h2>
       <div className="stack">
         <p className="no-margin">For years, we've relied on type casting API responses:</p>
         <div className="box" style={{ padding: "1.5rem", textAlign: "left" }}>
@@ -85,7 +84,6 @@ console.log(user.name); // What if this fails?
 function OpenAPISlide() {
   return (
     <div className="text-center stack">
-      <h2 className="no-margin">The OpenAPI Evolution</h2>
       <div className="stack">
         <p className="no-margin">We evolved to use OpenAPI specs with tools like Hey API:</p>
         <div className="box" style={{ padding: "1.5rem", textAlign: "left" }}>
@@ -129,7 +127,6 @@ function PerformanceMattersSlide() {
   return (
     <div className="stack">
       <div className="text-center">
-        <h2 className="no-margin">Why Runtime Validation Matters</h2>
         <p className="text-muted no-margin">When types aren't enough, validation becomes your safety net</p>
       </div>
 
@@ -265,7 +262,6 @@ function PropPollutionSlide() {
   return (
     <div className="stack">
       <div className="text-center">
-        <h2 className="no-margin">Unforeseen issues: Property Pollution</h2>
         <p className="text-muted no-margin">External data often contains more than you expect</p>
       </div>
 
@@ -392,7 +388,6 @@ function HeyAPIPluginsSlide() {
   return (
     <div className="stack">
       <div className="text-center">
-        <h2 className="no-margin">Hey API: Pluggable Validation</h2>
         <p className="text-muted no-margin">Choose your validation library with OpenAPI code generation</p>
       </div>
 
@@ -520,7 +515,6 @@ function StandardSchemaSlide() {
   return (
     <div className="stack">
       <div className="text-center">
-        <h2 className="no-margin">Standard Schema: Unifying Validation</h2>
         <p className="text-muted no-margin">A common interface for TypeScript validation libraries</p>
       </div>
 
@@ -790,7 +784,7 @@ function ThroughputSlide({
           <span className="font-medium" style={{ display: "block", marginBottom: "0.5rem" }}>
             Selected Validators ({selectedValidators.length})
           </span>
-          <div className="grid auto" style={{ "--grid-min": "140px" }}>
+          <div className="grid auto" >
             {validators.map((v) => (
               <label key={v.name} className="form-option-row">
                 <input
@@ -993,7 +987,6 @@ function ArkTypeEnvSlide() {
   return (
     <div className="stack">
       <div className="text-center">
-        <h2 className="no-margin">ArkType: Environment Variable Validation</h2>
         <p className="text-muted no-margin">Type-safe environment parsing with runtime validation</p>
       </div>
 
@@ -1103,9 +1096,6 @@ console.log(\`Server starting on port \${config.DATABASE_PORT}\`);`}</code>
 function ServiceWorkersSlide() {
   return (
     <div className="stack">
-      <div className="text-center">
-        <h2 className="no-margin">Built with Web Workers</h2>
-      </div>
       <div className="layout-split">
         <aside
           className="card"
@@ -1244,8 +1234,6 @@ function ChoosingValidatorSlide() {
 function PresentationIntroSlide() {
   return (
     <div className="text-center stack">
-      <h2 className="no-margin">Type safety vs Runtime safety and why it matters</h2>
-
       <div className="stack">
         <div
           className="box"
@@ -1316,11 +1304,9 @@ function PresentationIntroSlide() {
 function SpeakerIntroSlide() {
   return (
     <div className="text-center stack">
-      <h2 className="no-margin">Who am I?</h2>
-
       <div className="layout-sidebar">
         <div style={{ justifySelf: "center" }}>
-          <span className="avatar xl bordered" style={{ "--avatar-size": "192px" }}>
+          <span className="avatar xl bordered" style={{ width: "192px", height: '192px' }}>
             <img src="https://avatars.githubusercontent.com/u/34942041?v=4" alt="Sam Peterson" />
           </span>
         </div>
@@ -1388,8 +1374,6 @@ function SpeakerIntroSlide() {
 function ThankYouSlide() {
   return (
     <div className="text-center stack">
-      <h2 className="h1 no-margin">Thank You!</h2>
-
       <div className="stack">
         <div
           className="box"
@@ -1469,11 +1453,11 @@ function PresentationComponent() {
   // Explicitly type the slides array to prevent circular inference
   const slides: SlideData[] = [
     {
-      title: "Welcome",
+      title: "Type Safety vs Runtime Safety and Why It Matters",
       content: <PresentationIntroSlide />,
     },
     {
-      title: "About the Speaker",
+      title: "Who am I?",
       content: <SpeakerIntroSlide />,
     },
     {
@@ -1481,7 +1465,7 @@ function PresentationComponent() {
       content: <IntroSlide />,
     },
     {
-      title: "The Evolution of API Type Safety",
+      title: "The OpenAPI Evolution",
       content: <OpenAPISlide />,
     },
     {
@@ -1489,7 +1473,7 @@ function PresentationComponent() {
       content: <PerformanceMattersSlide />,
     },
     {
-      title: "Property Pollution & Data Security",
+      title: "Unforeseen Issues: Property Pollution",
       content: <PropPollutionSlide />,
     },
     {
@@ -1519,7 +1503,7 @@ function PresentationComponent() {
       ),
     },
     {
-      title: "ArkType: Environment Validation Example",
+      title: "ArkType: Environment Variable Validation",
       content: <ArkTypeEnvSlide />,
     },
     {
@@ -1531,11 +1515,11 @@ function PresentationComponent() {
       content: <ChoosingValidatorSlide />,
     },
     {
-      title: "How this benchmark was built",
+      title: "Built with Web Workers",
       content: <ServiceWorkersSlide />,
     },
     {
-      title: "Thank You & Questions",
+      title: "Thank You!",
       content: <ThankYouSlide />,
     },
   ];
@@ -1576,15 +1560,15 @@ function PresentationComponent() {
   }
 
   return (
-    <div className="layout-readable stack">
-      <header className="header border" style={{ padding: "1rem" }}>
-        <div className="split center">
+    <div className="stack" style={{ width: "100%" }}>
+      <header className="header border" style={{ padding: "1rem 2rem" }}>
+        <div className="split center" style={{flex: '1'}}>
           <h1 className="h1 no-margin">{activeSlide.title}</h1>
           <Link className="styled-link" to="/">← Back to Benchmarks</Link>
         </div>
       </header>
 
-      <main className="stack">
+      <main className="layout-readable stack">
         <div className="box glow" style={{ padding: "2rem", minHeight: "600px" }}>
           {activeSlide.content}
         </div>
