@@ -3,22 +3,34 @@ import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 export const Route = createFileRoute("/_app")({
   component: RouteComponent,
 });
-
 function RouteComponent() {
   return (
-    <div>
-      <header className="grid grid-flow-col grid-rows-2 m-4">
-        <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
-        <div className="flex gap-4">
-          <Link to="/compare" className="text-blue-500 hover:text-blue-700">
-            Compare syntax
-          </Link>
-          <Link to="/presentation" search={{ slide: 0 }} className="text-blue-500 hover:text-blue-700">
-            📊 Performance Presentation
-          </Link>
-          <Link to="/history" className="text-blue-500 hover:text-blue-700">
-            View historical performance
-          </Link>
+    <div className="layout-readable">
+      <header className="header border" style={{ marginBottom: "2rem" }}>
+        <div className="stack">
+          <h1 className="h1 no-margin">Node validator benchmarks</h1>
+          <nav className="cluster">
+            <span className="box invisible">
+              <Link className="styled-link" to="/">
+                Home
+              </Link>
+            </span>
+            <span className="box invisible">
+              <Link className="styled-link" to="/compare">
+                Compare syntax
+              </Link>
+            </span>
+            <span className="box invisible">
+              <Link className="styled-link" to="/presentation" search={{ slide: 0 }}>
+                📊 Performance Presentation
+              </Link>
+            </span>
+            <span className="box invisible">
+              <Link className="styled-link" to="/history">
+                View historical performance
+              </Link>
+            </span>
+          </nav>
         </div>
       </header>
 
