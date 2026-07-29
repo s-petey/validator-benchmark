@@ -21,17 +21,12 @@ export function ValidatorSnippet({
   const schemaCode = validatorActualDetailCode[getLowercaseValidatorName(validatorName)];
 
   return (
-    <pre className="rounded-lg p-4 bg-gray-800 text-white overflow-x-auto">
+    <pre>
       <code>
-        <span className="text-blue-500">{`// Validator: ${validatorName}\n`}</span>
-        <span className="text-blue-500">
+        <span style={{ color: "var(--blue)" }}>{`// Validator: ${validatorName}\n`}</span>
+        <span style={{ color: "var(--blue)" }}>
           {"// Docs: "}
-          <a
-            className="text-blue-700 hover:underline dark:text-blue-500"
-            href={docLink}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={docLink} target="_blank" rel="noreferrer">
             {docLink}
           </a>
           {"\n"}
