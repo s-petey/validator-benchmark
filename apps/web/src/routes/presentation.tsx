@@ -784,7 +784,7 @@ function ThroughputSlide({
           <span className="font-medium" style={{ display: "block", marginBottom: "0.5rem" }}>
             Selected Validators ({selectedValidators.length})
           </span>
-          <div className="grid auto" >
+          <div className="grid auto">
             {validators.map((v) => (
               <label key={v.name} className="form-option-row">
                 <input
@@ -1306,7 +1306,7 @@ function SpeakerIntroSlide() {
     <div className="text-center stack">
       <div className="layout-sidebar">
         <div style={{ justifySelf: "center" }}>
-          <span className="avatar xl bordered" style={{ width: "192px", height: '192px' }}>
+          <span className="avatar xl bordered" style={{ width: "192px", height: "192px" }}>
             <img src="https://avatars.githubusercontent.com/u/34942041?v=4" alt="Sam Peterson" />
           </span>
         </div>
@@ -1562,9 +1562,11 @@ function PresentationComponent() {
   return (
     <div className="stack" style={{ width: "100%" }}>
       <header className="header border" style={{ padding: "1rem 2rem" }}>
-        <div className="split center" style={{flex: '1'}}>
+        <div className="split center" style={{ flex: "1" }}>
           <h1 className="h1 no-margin">{activeSlide.title}</h1>
-          <Link className="styled-link" to="/">← Back to Benchmarks</Link>
+          <Link className="styled-link" to="/">
+            ← Back to Benchmarks
+          </Link>
         </div>
       </header>
 
