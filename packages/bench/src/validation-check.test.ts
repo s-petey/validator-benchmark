@@ -222,10 +222,14 @@ describe("Many objects bench, check if all objects pass the validation", () => {
 
   describe("effectV4", () => {
     test("base", () => {
-      expect(users.map((user) => SchemaV4.decodeSync(effectV4.baseSchema)(user)).every((result) => !!result)).toBe(true);
+      expect(users.map((user) => SchemaV4.decodeSync(effectV4.baseSchema)(user)).every((result) => !!result)).toBe(
+        true,
+      );
     });
     test("details", () => {
-      expect(users.map((user) => SchemaV4.decodeSync(effectV4.detailsSchema)(user)).every((result) => !!result)).toBe(true);
+      expect(users.map((user) => SchemaV4.decodeSync(effectV4.detailsSchema)(user)).every((result) => !!result)).toBe(
+        true,
+      );
     });
   });
 

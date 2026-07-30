@@ -7,9 +7,11 @@ export const emailSchema = Schema.String.pipe(
     decode: SchemaGetter.transform((s) => s.trim().toLowerCase()),
     encode: SchemaGetter.passthrough(),
   }),
-  Schema.check(Schema.isPattern(emailRegex, {
-    message: "Email address is invalid",
-  })),
+  Schema.check(
+    Schema.isPattern(emailRegex, {
+      message: "Email address is invalid",
+    }),
+  ),
   Schema.brand("EmailBrand"),
 );
 
