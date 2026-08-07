@@ -17,3 +17,10 @@
     opacity: 0.5;
   }
 }
+
+#tanstack_devtools,
+#tanstack_devtools *,
+#tanstack_devtools *::before,
+#tanstack_devtools *::after {
+  --fl: none;
+}
