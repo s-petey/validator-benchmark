@@ -2,6 +2,7 @@ import { a } from "@arrirpc/schema";
 import { Value } from "@sinclair/typebox/value";
 import { ArkErrors } from "arktype";
 import { Schema } from "effect";
+import { Schema as SchemaV4 } from "effect4";
 import { parse } from "valibot";
 import { describe, expect, test } from "vitest";
 import { users } from "./bench-many-objects/users.js";
@@ -10,6 +11,7 @@ import * as ajv from "./schemas/ajv.js";
 import * as arktype from "./schemas/arktype.js";
 import * as arri from "./schemas/arri.js";
 import * as effect from "./schemas/effectSchema.js";
+import * as effectV4 from "./schemas/effectSchema4.js";
 import * as joi from "./schemas/joi.js";
 import * as myzod from "./schemas/myzod.js";
 import * as typebox from "./schemas/typebox.js";
@@ -97,6 +99,15 @@ describe("Single object bench, check if object pass the validation", () => {
     });
     test("details", () => {
       expect(!!Schema.decodeSync(effect.detailsSchema)(user)).toBe(true);
+    });
+  });
+
+  describe("effectV4", () => {
+    test("base", () => {
+      expect(!!SchemaV4.decodeSync(effectV4.baseSchema)(user)).toBe(true);
+    });
+    test("details", () => {
+      expect(!!SchemaV4.decodeSync(effectV4.detailsSchema)(user)).toBe(true);
     });
   });
 
@@ -206,6 +217,19 @@ describe("Many objects bench, check if all objects pass the validation", () => {
     });
     test("details", () => {
       expect(users.map((user) => Schema.decodeSync(effect.detailsSchema)(user)).every((result) => !!result)).toBe(true);
+    });
+  });
+
+  describe("effectV4", () => {
+    test("base", () => {
+      expect(users.map((user) => SchemaV4.decodeSync(effectV4.baseSchema)(user)).every((result) => !!result)).toBe(
+        true,
+      );
+    });
+    test("details", () => {
+      expect(users.map((user) => SchemaV4.decodeSync(effectV4.detailsSchema)(user)).every((result) => !!result)).toBe(
+        true,
+      );
     });
   });
 

@@ -5,13 +5,14 @@
     "check:types": "turbo check:types",
     "format": "biome check",
     "format:fix": "biome check --write",
-    "dev": "turbo dev"
+    "dev": "turbo dev",
+    "bench:history": "turbo run bench:history --"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
-    "turbo": "^2.5.4"
+    "@biomejs/biome": "2.2.4",
+    "turbo": "^2.5.6"
   },
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@11.17.0",
   "engines": {
     "node": ">=22.17.0"
   }

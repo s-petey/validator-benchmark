@@ -1,10 +1,12 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
   "extends": "//",
   "files": {
     "includes": [
       "src/**/*.{ts,tsx}",
       "!src/routeTree.gen.ts",
+      "!dist",
       "index.html",
       "README.md",
       "tsconfig.*.json",

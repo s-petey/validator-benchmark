@@ -31,3 +31,12 @@ export type WorkerResult = {
   results?: TableResult[];
   progress?: string;
 };
+
+export const HistoryRecordSchema = z.object({
+  date: z.string(),
+  metrics: TableResultSchema,
+});
+export type HistoryRecord = z.infer<typeof HistoryRecordSchema>;
+
+export const HistoryDataSchema = z.record(z.string(), z.record(z.string(), z.array(HistoryRecordSchema)));
+export type HistoryData = z.infer<typeof HistoryDataSchema>;

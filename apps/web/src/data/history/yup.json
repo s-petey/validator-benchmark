@@ -1,0 +1,17 @@
+{
+  "yup": {
+    "1.7.1": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "yup",
+          "Latency avg (ns)": "3336.4 ± 0.59%",
+          "Latency med (ns)": "3083.0 ± 83.00",
+          "Throughput avg (ops/s)": "316574 ± 0.06%",
+          "Throughput med (ops/s)": "324359 ± 8974",
+          "Samples": 149861
+        }
+      }
+    ]
+  }
+}

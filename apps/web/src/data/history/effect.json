@@ -1,0 +1,17 @@
+{
+  "effect": {
+    "3.17.14": [
+      {
+        "date": "2026-07-28T13:14:43.672Z",
+        "metrics": {
+          "Task name": "effect",
+          "Latency avg (ns)": "1661.9 ± 0.52%",
+          "Latency med (ns)": "1583.0 ± 42.00",
+          "Throughput avg (ops/s)": "624728 ± 0.03%",
+          "Throughput med (ops/s)": "631712 ± 16796",
+          "Samples": 300853
+        }
+      }
+    ]
+  }
+}

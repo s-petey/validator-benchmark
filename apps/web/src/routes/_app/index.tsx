@@ -1,8 +1,8 @@
+import { TableResultSchema } from "@locals/bench/bench.schemas";
 import { validators } from "@locals/bench/benchmarks";
-import { TableResultSchema } from "@locals/bench-worker/bench.schemas";
 import ComWorker from "@locals/bench-worker/comlinkWorker?worker";
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   createColumnHelper,
   flexRender,
@@ -20,7 +20,7 @@ type TableResult = z.infer<typeof TableResultSchema>;
 
 const columnHelper = createColumnHelper<TableResult>();
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_app/")({
   component: HomeComponent,
 });
 
@@ -90,22 +90,15 @@ function HomeComponent() {
   });
 
   return (
-    <main className="flex flex-col justify-center gap-4">
-      <header className="flex flex-col p-4">
-        <h1 className="text-4xl font-bold">Node validator benchmarks</h1>
-        <Link to="/compare" className="text-blue-500 hover:text-blue-700">
-          Compare syntax
-        </Link>
-      </header>
-
-      <div className="flex-1 flex flex-col items-center gap-4 min-h-0">
-        <div className="w-full px-4">
+    <main className="stack">
+      <div className="stack">
+        <div>
           {/* List currently included validators */}
-          <section className="flex flex-col items-center gap-2">
-            <h2 className="text-2xl font-bold">Select validators to run</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full justify-items-center">
+          <section className="stack">
+            <h2 className="text-center no-margin">Select validators to run</h2>
+            <div className="grid auto">
               {validators.map(({ href, name }) => (
-                <div key={`validator-${name}-${href}`} className="p-2 flex items-center gap-2">
+                <div key={`validator-${name}-${href}`} className="form-option-row">
                   <input
                     type="checkbox"
                     checked={selectedValidators.includes(name)}
@@ -116,17 +109,12 @@ function HomeComponent() {
                     }}
                     id={`checkbox-${name}`}
                   />
-                  <label htmlFor={`checkbox-${name}`} className="cursor-pointer flex items-center gap-1">
+                  <label htmlFor={`checkbox-${name}`} className="cursor-pointer cluster">
                     <span>{name}</span>
-                    <a
-                      className="text-blue-700 hover:underline dark:text-blue-500"
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <a href={href} className="icon-button" target="_blank" rel="noreferrer">
                       <svg
+                        style={{ height: 24, width: 24 }}
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -147,27 +135,28 @@ function HomeComponent() {
           </section>
         </div>
 
-        <div className="py-4">
-          <div
-            className={`w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 ${
-              status === "pending" ? "animate-pulse" : "hidden"
-            }`}
-          ></div>
+        <div>
           <div className="text-center">
             {isPlaceholderData || (status !== "success" && status !== "error") ? (
-              <span className="animate-pulse">Benchmark is loading...</span>
+              <span
+                style={{
+                  animation: "pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                }}
+              >
+                Benchmark is loading...
+              </span>
             ) : status === "success" ? (
-              <span className="text-green-500">Success!</span>
+              <span className="tag success">Success!</span>
             ) : status === "error" ? (
-              <span className="text-red-500">Error</span>
+              <span className="tag error">Error</span>
             ) : null}
           </div>
           {(isPlaceholderData || status === "pending") && (
             <div className="text-center">
               {progress && (
-                <span className="text-gray-700 dark:text-gray-300">
+                <span className="text-muted">
                   Currently running:
-                  <span className="inline-block ml-2 rounded-full px-2 py-1 text-xs font-semibold leading-5 text-white transform translate-x-1/2 bg-green-500">
+                  <span className="tag success" style={{ marginLeft: "0.5rem" }}>
                     {progress}
                   </span>
                 </span>
@@ -177,7 +166,8 @@ function HomeComponent() {
         </div>
 
         <form
-          className="space-y-4 flex items-center flex-col"
+          className="stack"
+          style={{ maxWidth: "400px", margin: "0 auto" }}
           onSubmit={(e) => {
             e.preventDefault();
             setFormState({
@@ -187,10 +177,14 @@ function HomeComponent() {
             });
           }}
         >
-          <div className="flex gap-4">
-            <label htmlFor="iterations" className="font-medium">
-              Iterations:
+          <div className="row">
+            <label htmlFor="iterations" className="font-medium cluster">
+              <span className="tooltip">
+                <span>Iterations:</span>
+                <span className="tip"> Number of times that a task should run if even the time option is finished</span>
+              </span>
             </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
               disabled={isPlaceholderData || status === "pending"}
               type="number"
@@ -198,16 +192,17 @@ function HomeComponent() {
               name="iterations"
               min="1"
               value={iterations}
-              className="border rounded-md p-1 disabled:opacity-50"
               onChange={(e) => setIterations(Number(e.target.value))}
             />
-
-            <Tooltip text="Number of times that a task should run if even the time option is finished" />
           </div>
-          <div className="flex gap-4 items-center">
-            <label htmlFor="time" className="font-medium">
-              Time (ms):
+          <div className="row">
+            <label htmlFor="time" className="font-medium cluster">
+              <span className="tooltip">
+                <span>Time (ms):</span>
+                <span className="tip">Time needed for running a benchmark task (milliseconds)</span>
+              </span>
             </label>
+            {/* biome-ignore lint/correctness/useUniqueElementIds: Ignoring... */}
             <input
               disabled={isPlaceholderData || status === "pending"}
               type="number"
@@ -215,33 +210,21 @@ function HomeComponent() {
               name="time"
               min="1"
               value={time}
-              className="border rounded-md p-1 disabled:opacity-50"
               onChange={(e) => setTime(Number(e.target.value))}
             />
-
-            <Tooltip text="Time needed for running a benchmark task (milliseconds)" />
           </div>
-          <button
-            disabled={isPlaceholderData || status === "pending"}
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:opacity-50"
-          >
+          <button disabled={isPlaceholderData || status === "pending"} type="submit" className="primary full">
             Start Benchmark
           </button>
         </form>
 
-        <div className="text-sm text-gray-600 dark:text-gray-400 px-4 text-center">
+        <div className="text-muted text-center fs-xs">
           The benchmark will only run the results one time per combination of time and iterations until the browser
           reloads.
         </div>
 
-        <div className="flex flex-col overflow-x-auto w-3/4 justify-center">
+        <div className="stack" style={{ alignItems: "center" }}>
           <Table data={data ?? []} placeholder={isPlaceholderData} />
-
-          <div className="h-4" />
-          {/* <button onClick={() => rerender()} className='border p-2'>
-            Rerender
-          </button> */}
         </div>
       </div>
     </main>
@@ -268,67 +251,55 @@ function Table({ data, placeholder }: { data: TableResult[]; placeholder: boolea
   });
 
   return (
-    <table
-      className={
-        "text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 md:table-fixed table-auto" +
-        (placeholder ? " opacity-50" : "")
-      }
+    <div
+      style={{
+        opacity: placeholder ? "0.5" : undefined,
+        width: "100%",
+      }}
+      className="table zebra"
     >
-      <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id} className="px-6 py-3">
-                <button
-                  type="button"
-                  className={header.column.getCanSort() ? "cursor-pointer select-none" : ""}
-                  onClick={header.column.getToggleSortingHandler()}
-                  title={
-                    header.column.getCanSort()
-                      ? header.column.getNextSortingOrder() === "asc"
-                        ? "Sort ascending"
-                        : header.column.getNextSortingOrder() === "desc"
-                          ? "Sort descending"
-                          : "Clear sort"
-                      : undefined
-                  }
-                >
-                  {flexRender(header.column.columnDef.header, header.getContext())}
-                  {{
-                    asc: " ⬆️",
-                    desc: " ⬇️",
-                  }[header.column.getIsSorted() as string] ?? null}
-                </button>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr
-            key={row.id}
-            className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-          >
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} className="px-6 py-4">
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-const Tooltip = ({ text }: { text: string }) => {
-  return (
-    <div className="relative group">
-      &#9432;
-      <div className="absolute w-48 left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 z-10">
-        {text}
-      </div>
+      <table>
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  <button
+                    type="button"
+                    className="reset font-bold"
+                    style={{ cursor: header.column.getCanSort() ? "pointer" : "default" }}
+                    onClick={header.column.getToggleSortingHandler()}
+                    title={
+                      header.column.getCanSort()
+                        ? header.column.getNextSortingOrder() === "asc"
+                          ? "Sort ascending"
+                          : header.column.getNextSortingOrder() === "desc"
+                            ? "Sort descending"
+                            : "Clear sort"
+                        : undefined
+                    }
+                  >
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                    {{
+                      asc: " ⬆️",
+                      desc: " ⬇️",
+                    }[header.column.getIsSorted() as string] ?? null}
+                  </button>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
